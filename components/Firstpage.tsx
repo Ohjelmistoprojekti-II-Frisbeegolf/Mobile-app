@@ -1,11 +1,17 @@
 import React,{useState} from 'react';
-import { NativeBaseProvider,Box } from 'native-base';
-import {Text,View,Button} from 'native-base';
+import { NativeBaseProvider,Box, Center, AspectRatio } from 'native-base';
+import {Text,View,Button,Image} from 'native-base';
+import { Avatar } from "native-base";
 
 export default function Firstpage(){
     return(
-        <View>
-            <Text>Firstpage</Text>
+        <View style={{marginTop:150, alignItems:'center'}}>
+            <Button style={{}}>
+                <Text style={{fontSize:22}}>Aloita peli</Text>
+            </Button>
+            <Avatar marginTop={42} size={250} bg="cyan.500" source={{
+                uri: "https://images.unsplash.com/photo-1603415526960-f7e0328c63b1?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80"
+            }}/>
         </View>
     );
 }
