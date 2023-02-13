@@ -1,12 +1,13 @@
-import * as React from "react";
-import Firstpage from "./Firstpage";
-import { View,Text } from "native-base";
+import { createDrawerNavigator } from '@react-navigation/drawer';
+import Firstpage from './Firstpage';
 
+const Drawer = createDrawerNavigator();
 
-export default function Menu(){
-    return (
-        <View>
-            <Text>Moi</Text>
-        </View>
-    );
+export default function MyDrawer() {
+  return (
+    <Drawer.Navigator>
+      <Drawer.Screen name="Feed" component={Firstpage} />
+      <Drawer.Screen name="Article" component={Firstpage} />
+    </Drawer.Navigator>
+  );
 }
