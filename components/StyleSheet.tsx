@@ -4,8 +4,18 @@ import { StyleSheet } from 'react-native';
     const styles = StyleSheet.create({
         
         text: {
-            color: 'green',
             fontSize:22,
+        },
+
+        button: {
+            marginTop: 50,
+            color: 'green',
+            backgroundColor: 'green',
+            width: '80%',
+        },
+
+        view: {
+            alignItems: 'center',
         }
     });
 
