@@ -124,7 +124,6 @@ coverage
 
 # nyc test coverage
 .nyc_output
-
 # Grunt intermediate storage (https://gruntjs.com/creating-plugins#storing-task-files)
 .grunt
 
@@ -286,5 +285,6 @@ google-services.json
 # Ignore all local history of files
 .history
 .ionide
+components/Keys.tsx
 
 # End of https://www.toptal.com/developers/gitignore/api/reactnative,visualstudiocode
