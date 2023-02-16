@@ -1,12 +1,12 @@
 import React,{useState} from 'react';
-import { NativeBaseProvider,Box, Center, AspectRatio } from 'native-base';
 import {Text,View,Button,Image} from 'native-base';
 import { Avatar } from "native-base";
+import { styles } from './StyleSheet';
 
 export default function Firstpage(){
     return(
-        <View style={{marginTop:150, alignItems:'center'}}>
-            <Button style={{backgroundColor:'black'}}>
+        <View style={styles.view}>
+            <Button style={ styles.button}>
                 <Text style={{fontSize:22, color:'white'}}>Aloita peli</Text>
             </Button>
             <Avatar marginTop={42} size={250} bg="cyan.500" source={{
