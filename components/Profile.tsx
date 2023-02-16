@@ -3,10 +3,16 @@ import { View,Avatar,Text,Box, FlatList} from 'native-base';
 import { styles } from './StyleSheet';
 import { ActivityIndicator } from 'react-native';
 
+interface User {
+    userId: number,
+    username:string,
+    password:string,
+    role:string
+}
 export default function Profile(){
 
-    const [repository,setRepository] = useState({
-        userId:0,
+    const [repository,setRepository] = useState<User>({
+        userId: 1,
         username:"",
         password:"",
         role:""
