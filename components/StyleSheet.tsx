@@ -16,7 +16,17 @@ import { StyleSheet } from 'react-native';
 
         view: {
             alignItems: 'center',
-        }
+        },
+
+        weatherContainer: {
+            alignItems: 'center',
+            marginTop: 50,
+          },
+          weatherIcon: {
+            width: 50,
+            height: 50,
+          },
+        
     });
 
     export { styles }
