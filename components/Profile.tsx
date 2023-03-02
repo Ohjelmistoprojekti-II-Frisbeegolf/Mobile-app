@@ -41,6 +41,10 @@ export default function Profile(){
                 size="small"
                 animating={loading}/>
                 <Text style={styles.text}>{repository.username}</Text>
+                <Text style={styles.text}>Heitot: {repository.totalThrowsThrown}</Text>
+                <Text style={styles.text}>Askeleet: {repository.totalSteps}</Text>
+                <Text style={styles.text}>Peliaika: {repository.totalTimePlayed}</Text>
+
             </View>
         </View>
     );
