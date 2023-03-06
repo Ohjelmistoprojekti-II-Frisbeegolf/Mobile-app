@@ -36,7 +36,7 @@ export default function MyDrawer() {
       <Drawer.Screen name="Etusivu" component={Firstpage} />
       <Drawer.Screen name="Profiili" component={Profile} />
       <Drawer.Screen name="Peli" component={CurrentGame} />
-      <Drawer.Screen name="Map" component={Map} />
+      <Drawer.Screen name="Kartta" component={Map} />
       <Drawer.Screen name="Asetukset" component={Settings} />
     </Drawer.Navigator>
   );
