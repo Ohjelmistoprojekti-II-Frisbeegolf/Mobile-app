@@ -19,14 +19,18 @@ import { StyleSheet } from 'react-native';
         },
 
         weatherContainer: {
-            alignItems: 'center',
-            marginTop: 50,
+            alignItems: 'stretch',
+            marginTop: 50,         
           },
           weatherIcon: {
             width: 50,
             height: 50,
           },
-        
+          weatherText: {
+            color: 'white',
+            fontWeight: 'bold',
+          },
+          
     });
 
     export { styles }
