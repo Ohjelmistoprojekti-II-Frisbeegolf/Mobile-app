@@ -6,6 +6,10 @@
 ```
 git clone <repository_link>
 ```
+You can get the link by pressing the green button that says <>code. Picture below
+
+![image](https://user-images.githubusercontent.com/112404201/224038637-ad07c060-9ba8-4815-aaf3-fa74a5dfb639.png)
+
 2. Open the project directory in your terminal.
 3. To install the project dependencies, run the following command: 
 ```
@@ -44,6 +48,24 @@ npx expo start
 * In the terminal, press the key `a` to run the app on an Android emulator or `i` to run it on an iOS simulator. Alternatively, you can click the `Run on Android device/emulator` or `Run on iOS simulator` button in the Expo Dev Tools website.
 
 
+## Diagrams
 
+### Class diagram
+![image](https://user-images.githubusercontent.com/112090760/218437538-017b6d69-3f7b-4264-8bad-ba8a09f37e14.png)
+https://drive.google.com/file/d/1UIjLorhs4ta1BoDnU8cAZn7i17y52Km4/view?usp=sharing
 
+### Kotlin diagrams
+![image](https://user-images.githubusercontent.com/92360393/218316206-d969946d-da80-488b-836e-93b92efc0da0.png)
+![image](https://user-images.githubusercontent.com/92360393/218535454-0faae0e7-fdbc-4fa8-9052-02c9c48518c5.png)
+https://drive.google.com/file/d/1tt8eMqNPkKO7jZNQeQgLqUaTw3u4mNXt/view?usp=sharing
 
+### Relational diagram
+![image](https://user-images.githubusercontent.com/92360393/218316160-5915b9d5-ae2e-4222-8495-f212611f29d9.png)
+https://drive.google.com/file/d/1tt8eMqNPkKO7jZNQeQgLqUaTw3u4mNXt/view?usp=sharing
+
+## Wireframe / design planning
+Figma URL: https://www.figma.com/file/nov1hYxctfsS6MmAfOSfm9/FrisbeeGolfRautalanka?node-id=0%3A1&t=gEHYrf7uQcJKrABw-1
+
+## Backend
+
+If you want to visit the Backend of this project, click [here](https://github.com/Ohjelmistoprojekti-II-Frisbeegolf/Backend).
