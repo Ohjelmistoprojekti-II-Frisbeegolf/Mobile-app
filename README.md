@@ -52,16 +52,13 @@ npx expo start
 
 ### Class diagram
 ![image](https://user-images.githubusercontent.com/112090760/218437538-017b6d69-3f7b-4264-8bad-ba8a09f37e14.png)
-https://drive.google.com/file/d/1UIjLorhs4ta1BoDnU8cAZn7i17y52Km4/view?usp=sharing
 
 ### Kotlin diagrams
 ![image](https://user-images.githubusercontent.com/92360393/218316206-d969946d-da80-488b-836e-93b92efc0da0.png)
 ![image](https://user-images.githubusercontent.com/92360393/218535454-0faae0e7-fdbc-4fa8-9052-02c9c48518c5.png)
-https://drive.google.com/file/d/1tt8eMqNPkKO7jZNQeQgLqUaTw3u4mNXt/view?usp=sharing
 
 ### Relational diagram
 ![image](https://user-images.githubusercontent.com/92360393/218316160-5915b9d5-ae2e-4222-8495-f212611f29d9.png)
-https://drive.google.com/file/d/1tt8eMqNPkKO7jZNQeQgLqUaTw3u4mNXt/view?usp=sharing
 
 ## Wireframe / design planning
 Figma URL: https://www.figma.com/file/nov1hYxctfsS6MmAfOSfm9/FrisbeeGolfRautalanka?node-id=0%3A1&t=gEHYrf7uQcJKrABw-1
