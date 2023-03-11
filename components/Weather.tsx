@@ -37,7 +37,9 @@ export default function Weather(){
         const location = await Location.getCurrentPositionAsync({});
         const { latitude, longitude } = location.coords;
 
-        const response = await fetch(`https://dev-discgolf.herokuapp.com/weather?lat=${latitude}&lon=${longitude}`);
+        const units = 'metric';
+
+        const response = await fetch(`http://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&units=${units}&appid=${API_KEY}`);
         const data = await response.json();
         setWeatherData(data);
         console.log(data);
