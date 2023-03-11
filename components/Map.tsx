@@ -133,7 +133,7 @@ export default function Map(){
                 value={input}
                 onChangeText={(text)=>setInput(text)}
                 />
-                <Button onPress={() => etsiRata()}>Etsi</Button>
+                <Button style={styles.mapButton} onPress={() => etsiRata()}>Etsi</Button>
             </View>
         </View>
     );

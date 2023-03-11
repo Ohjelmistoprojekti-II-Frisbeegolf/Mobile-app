@@ -44,14 +44,19 @@ export default function MyDrawer() {
     drawerContent={(props) => <CustomDrawerContent props={props} />}
     screenOptions={{
       headerStyle: 
-        {backgroundColor: 'green'},
+        {backgroundColor: 'green',
+        borderBottomColor: '#336600',
+        borderBottomWidth: 2,},
         headerTintColor: 'white',
         headerTitleStyle: {
             fontWeight: 'bold',
-      },
+        },
       drawerStyle:{
         backgroundColor: 'green',
         width: 250,
+        marginRight: 0,
+        borderRightWidth: 2,
+        borderRightColor: '#336600',
 
       },
       drawerLabelStyle: {

@@ -1,12 +1,14 @@
 import React,{useState} from 'react';
-import {Text,View,Button,Image} from 'native-base';
+import { Text, View, Button} from 'native-base';
 import { Avatar } from "native-base";
 import { styles } from './StyleSheet';
 
 export default function Firstpage({navigation}:  {navigation: any}){
     return(
         <View style={styles.view}>
-            <Button style={ styles.button}
+            <Button
+            _pressed={{ opacity: 0.5 }}
+            style={styles.button}
             onPress= { () => navigation.navigate('Peli')}>
                 <Text style={{fontSize:22, color:'white'}}>Aloita peli</Text>
             </Button>
