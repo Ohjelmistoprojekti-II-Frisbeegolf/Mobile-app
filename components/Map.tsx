@@ -5,28 +5,20 @@ import { styles } from './StyleSheet';
 import { Input,} from 'native-base';
 
 type Address = {
-    id: number;
     courseId:number,
+    courseName: string,
+    courseStreetaddress:string,
+    courseTown:string,
+    coursePostalcode:string
+    difficulty:string,
+    latitude: number;
+    longitude: number;
     holes: {
         holeId: number;
         holePar: number;
         holeLength: number;
         holeNumber: number;
     }[];
-    location: {
-        latitude: number;
-        longitude: number;
-    };
-    courseName: string,
-    courseStreetaddress:string,
-    courseTown:string,
-    coursePostalcode:string
-}
-type Hole = {
-    holeId: number,
-    holePar:number,
-    holeLength:number,
-    holeNumber:number
 }
 type search = {
     name:string,
@@ -37,6 +29,7 @@ type search = {
 }
 export default function Map(){
 
+    const mapRef = React.useRef<MapView>(null);
     const [addresses, setAdresses] = useState<Address[]>([]);
     const [input, setInput] = useState('');
     const [searchResult, setSearchResult] = useState<search>({
@@ -46,30 +39,13 @@ export default function Map(){
             longitude:0
         }
     });
+    const [Selected, setSelected] = useState<Address | null>(null)
+    const [showInfo, setShowInfo] = useState(false);
 
-    const fetchData = async () => {
-       const res = await fetch('https://disc-golf-database.herokuapp.com/courses')
-       const data = await res.json();
-
-       const addressLocation = await Promise.all(data.map(async (address: Address)=> {
-        const { courseId, holes, courseName, courseStreetaddress, courseTown, coursePostalcode } = address;
-        const uribuilder = `${courseStreetaddress}, ${courseTown}, ${coursePostalcode}`;
-        const response = await fetch(`http://www.mapquestapi.com/geocoding/v1/address?key=hygsYyYwV63LComSV4XwfgYS0bSuGle6&location=${encodeURIComponent(uribuilder)}`)
-        const data = await response.json();
-        const {lat, lng} = data.results[0].locations[0].latLng;
-        return{
-            id: courseId,
-            courseName:courseName,
-            location: {
-                latitude: lat,
-                longitude: lng,
-            },
-            courseStreetaddress: courseStreetaddress,
-            courseTown:courseTown,
-            holes:holes
-       };
-        }));
-        setAdresses(addressLocation);
+    const fetchData = () => {
+       fetch('https://dev-discgolf.herokuapp.com/courses')
+       .then(res => res.json())
+       .then(data => setAdresses(data))
     }
 
     useEffect(() => {
@@ -77,23 +53,28 @@ export default function Map(){
     },[])
 
     const handleMarkerPress = (address: Address) => {
-        console.log("testitesti")
+        setSelected(address);
+        mapRef.current?.animateToRegion({
+            latitude: address.latitude,
+            longitude: address.longitude,
+            latitudeDelta: 0.02,
+            longitudeDelta: 0.02
+        })
     }
 
     const markers = () => {
-        return addresses.map((address)=> (
-            <Marker
-            key={address.id}
-            coordinate={address.location}
-            onPress={()=> handleMarkerPress(address)}
-            >
-                <Callout>
-                    <View>
-                        <Text>{address.courseName}</Text>
-                    </View>
-                </Callout>
-            </Marker>
-        ));
+        return addresses.map((address)=> {
+            const lat = address.latitude;
+            const lng = address.longitude;
+            const title = address.courseName
+            return ( 
+                <Marker
+                key={address.courseId}
+                coordinate={{latitude:lat, longitude:lng}}
+                onPress={()=> handleMarkerPress(address)}
+                >
+                </Marker>
+        )});
     };
 
     const etsiRata = async () => {
@@ -121,20 +102,46 @@ export default function Map(){
             </Marker>
         )
     }
+
+    const handleMapPress = () => {
+        if (Selected) {
+            setSelected(null)
+        }
+        
+    };
+
     return(
-        <View style={{flex:1}}>
-            <MapView style={{height:'100%', width:'100%'}}>
+        <View style={styles.view}>
+            <MapView style={{height:'100%', width:'100%'}} showsCompass={false} ref={mapRef} onPress={()=> handleMapPress()}>
                 {markers()}
             </MapView>
-            <View style={{position: 'absolute', top: 20, left: 10, right: 10}} >
-                <Input
-                style={{}}
-                placeholder="Etsi osoitteella..."
-                value={input}
-                onChangeText={(text)=>setInput(text)}
-                />
-                <Button style={styles.mapButton} onPress={() => etsiRata()}>Etsi</Button>
+            <View style={styles.mapSearch} >
+                    <Input
+                    style={styles.mapInput}
+                    placeholder="Etsi osoitteella..."
+                    value={input}
+                    onChangeText={(text)=>setInput(text)}
+                    />
+                    <Button style={styles.mapButton} onPress={() => etsiRata()}>
+                        Etsi...
+                    </Button>
             </View>
+            {Selected && (
+                <View style={styles.informationContainer}>
+                    <View style={styles.informationContainerHeader}>
+                        <Text style={styles.informationTextHeader}>{Selected?.courseName}</Text>
+                    </View>
+                <View style={styles.informationContainerBody}>
+                    <View>
+                        <Text style={styles.informationText}>Vaikeustaso: {Selected?.difficulty}</Text>
+                        <Text style={styles.informationText}>Väylien määrä: {Selected?.holes.length}</Text>
+                    </View>
+                    <Button style={styles.informationButton} onPress={() => setSelected(null)}>
+                        <Text style={styles.informationText}>Aloita</Text>
+                    </Button>
+                </View>
+            </View>
+            )}
         </View>
     );
 }
