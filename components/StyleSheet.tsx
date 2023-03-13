@@ -1,4 +1,5 @@
 import { StyleSheet } from 'react-native';
+import { color } from 'react-native-reanimated';
 
     const styles = StyleSheet.create({
         
@@ -50,12 +51,22 @@ import { StyleSheet } from 'react-native';
         },
 
         mapButton: {
-          color: 'green',
-          backgroundColor: 'green',
-          borderColor: '#336600',
-          borderWidth: 3,
-          borderRadius: 20,
-          position: 'relative',
+            marginTop:5,
+            color: 'green',
+            backgroundColor: 'green',
+            borderColor: '#336600',
+            borderWidth: 3,
+            borderRadius: 20,
+            position: 'relative',
+        },
+        mapInput: {
+            backgroundColor:'white',
+        },
+
+        mapSearch: {
+            top:20,
+            position:'absolute',
+            width:'95%',
         },
 
         header: {
@@ -63,6 +74,61 @@ import { StyleSheet } from 'react-native';
           marginBottom: 10,
           lineHeight: 45,
           fontFamily: 'Helvetica'
+        },
+
+        informationContainer: {
+            display:'flex',
+            height:'35%',
+            width:'100%',
+            position:'absolute',
+            bottom:-80,
+            marginBottom:10,
+            alignItems:'center',
+        },
+        informationContainerHeader: {
+            padding:5,
+            backgroundColor: 'green',
+            borderColor: '#336600',
+            borderRadius: 15,
+            borderWidth:3,
+            height:'25%',
+            width:'97%',
+            justifyContent:'center'
+        },
+        informationContainerBody: {
+            display:'flex',
+            flexDirection:'row',
+            marginTop:5,
+            backgroundColor: 'green',
+            borderColor: '#336600',
+            borderRadius: 15,
+            borderWidth:3,
+            height:'35%',
+            width:'97%',
+            justifyContent:'center',
+            alignItems:'center'
+        },
+
+        informationText: {
+            padding:7,
+            fontSize:22,
+            color:'white',
+        },
+        informationTextHeader: {
+            paddingTop:5,
+            fontSize:25,
+            color:'white',
+            textAlign:'center',
+        },
+        informationButton: {
+            color: 'green',
+            backgroundColor: 'green',
+            borderColor: '#336600',
+            borderWidth: 3,
+            width: '40%',
+            height:'80%',
+            borderRadius: 20,
+            justifyContent: 'center',
         },
 
         weatherContainer: {
