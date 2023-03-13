@@ -130,6 +130,11 @@ import { color } from 'react-native-reanimated';
             borderRadius: 20,
             justifyContent: 'center',
         },
+        informationButtonText: {
+            padding: 10,
+            fontSize:22,
+            color:'white',
+        },
 
         weatherContainer: {
             alignItems: 'center',
