@@ -4,12 +4,22 @@ import { color } from 'react-native-reanimated';
     const styles = StyleSheet.create({
         
         text: {
-            fontSize:22,
+            fontSize:13,
+            fontWeight: 'bold',
+            color: 'white'
+        },
+
+        avatarView: {
+          backgroundColor: 'green',
+          height: '30%',
+          width: '100%',
+          alignItems: 'center',
+          justifyContent: 'center',
         },
 
         button: {
             marginTop: 50,
-            color: 'green',
+            color: 'white',
             backgroundColor: 'green',
             borderColor: '#336600',
             borderWidth: 3,
@@ -32,12 +42,12 @@ import { color } from 'react-native-reanimated';
           alignItems: 'center',
           width: '10%',
           backgroundColor: 'green',
-          marginLeft: 15,
-          marginTop: 10,
-          marginRight: 10,
+          marginLeft: '4%',
+          marginTop: '4%',
+          marginRight: '3%',
           borderColor: '#336600',
           borderWidth: 1,
-          borderRadius: 20,
+          borderRadius: 50,
         },
 
         nextPreviousButton: {
@@ -138,10 +148,13 @@ import { color } from 'react-native-reanimated';
             color:'white',
         },
 
-        weatherContainer: {
-            alignItems: 'center',
-            marginTop: 20,
-          },
+        weatherView: {
+          backgroundColor: 'green',
+          height: '50%',
+          width: '100%',
+          alignItems: 'center',
+          paddingTop: '5%'
+        },
 
           weatherIcon: {
             width: 50,
@@ -162,21 +175,11 @@ import { color } from 'react-native-reanimated';
           },
 
           avatarDrawer: {
-            marginTop: -60,
-            marginLeft: 50,
             width: 150,
             height: 150,
-            marginBottom: 0,
             borderColor: '#336600',
             borderWidth: 3,
           },
-
-          drawer: {
-            backgroundColor: 'green', 
-            height: 100, 
-            justifyContent: 'space-between', 
-            alignItems: 'center',
-          }
 
     });
 
