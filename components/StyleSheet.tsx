@@ -128,7 +128,9 @@ import { color } from 'react-native-reanimated';
             width: '40%',
             height:'80%',
             borderRadius: 20,
+            paddingLeft:25,
             justifyContent: 'center',
+            alignItems:'center'
         },
         informationButtonText: {
             padding: 10,
