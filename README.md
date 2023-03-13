@@ -54,8 +54,8 @@ npx expo start
 ![image](https://user-images.githubusercontent.com/112090760/218437538-017b6d69-3f7b-4264-8bad-ba8a09f37e14.png)
 
 ### Kotlin diagrams
-![image](https://user-images.githubusercontent.com/92360393/218316206-d969946d-da80-488b-836e-93b92efc0da0.png)
-![image](https://user-images.githubusercontent.com/92360393/218535454-0faae0e7-fdbc-4fa8-9052-02c9c48518c5.png)
+![image](https://user-images.githubusercontent.com/92360393/224704049-e50588db-155c-45f1-9a34-cbb41d7e8565.png)
+![image](https://user-images.githubusercontent.com/92360393/224705641-c0c1ba55-f1e5-440c-84c1-03037efb1d31.png)
 
 ### Relational diagram
 ![image](https://user-images.githubusercontent.com/92360393/218316160-5915b9d5-ae2e-4222-8495-f212611f29d9.png)
@@ -65,6 +65,8 @@ Figma URL: https://www.figma.com/file/nov1hYxctfsS6MmAfOSfm9/FrisbeeGolfRautalan
 
 ## API Documentation
 Development deployment: https://dev-discgolf.herokuapp.com/swagger-ui/index.html
+
+Production deployment: https://disc-golf-database.herokuapp.com/swagger-ui/index.html
 
 ## Backend
 
