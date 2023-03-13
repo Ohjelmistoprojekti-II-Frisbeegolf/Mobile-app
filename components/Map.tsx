@@ -1,6 +1,6 @@
 import MapView, { Marker,Callout } from 'react-native-maps';
 import React, {useState,useEffect} from 'react'
-import { Text, View, Button} from 'native-base'
+import { Text, View, Button, ChevronRightIcon} from 'native-base'
 import { styles } from './StyleSheet';
 import { Input,} from 'native-base';
 
@@ -137,7 +137,7 @@ export default function Map(){
                         <Text style={styles.informationText}>Väylien määrä: {Selected?.holes.length}</Text>
                     </View>
                     <Button style={styles.informationButton} onPress={() => setSelected(null)}>
-                        <Text style={styles.informationText}>Aloita</Text>
+                        <Text style={styles.informationButtonText}>Lisää <ChevronRightIcon size={10} color='white'/></Text>
                     </Button>
                 </View>
             </View>
