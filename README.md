@@ -63,6 +63,9 @@ npx expo start
 ## Wireframe / design planning
 Figma URL: https://www.figma.com/file/nov1hYxctfsS6MmAfOSfm9/FrisbeeGolfRautalanka?node-id=0%3A1&t=gEHYrf7uQcJKrABw-1
 
+## API Documentation
+Development deployment: https://dev-discgolf.herokuapp.com/swagger-ui/index.html
+
 ## Backend
 
 If you want to visit the Backend of this project, click [here](https://github.com/Ohjelmistoprojekti-II-Frisbeegolf/Backend).
