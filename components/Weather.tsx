@@ -49,13 +49,11 @@ export default function Weather(){
   }, []);
   
   return (
-    <View style={styles.view}>
-      <View style={styles.weatherContainer}>
+    <View style={styles.weatherView}>
         <Text style={styles.weatherText}>{weatherData.name}</Text> 
         <Image source={{ uri: `http://openweathermap.org/img/w/${weatherData.weather[0].icon}.png` }} style={{ width: 50, height: 50 }} alt='weather icon' />
         <Text style={styles.weatherText}>Lämpötila: {weatherData.main.temp} °C</Text>
         <Text style={styles.weatherText}>Tuulen nopeus: {weatherData.wind.speed} m/s</Text>
-      </View>
     </View>
   );
 }
