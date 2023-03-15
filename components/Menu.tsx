@@ -8,6 +8,7 @@ import { styles } from './StyleSheet';
 import Map from './Map';
 import Weather from './Weather';
 import { Avatar, Button } from "native-base";
+import { Feather } from '@expo/vector-icons';
 
 const Drawer = createDrawerNavigator();
 
@@ -66,11 +67,43 @@ export default function MyDrawer() {
         dimensions.width >= 768 ? 'permanent' : 'front',
     
     }}>
-      <Drawer.Screen name="Etusivu" component={Firstpage} />
-      <Drawer.Screen name="Profiili" component={Profile} />
-      <Drawer.Screen name="Peli" component={CurrentGame} />
-      <Drawer.Screen name="Kartta" component={Map} />
-      <Drawer.Screen name="Asetukset" component={Settings} />
+      <Drawer.Screen
+      name="Etusivu" 
+      component={Firstpage} 
+      options={{
+      drawerIcon: ({ color, size }) => (
+      <Feather name='home' size={size} color='black' />
+  ),
+  }} />
+      <Drawer.Screen 
+      name='Profiili' 
+      component={Profile} 
+      options={{
+      drawerIcon: ({ color, size }) => (
+      <Feather name='user' size={size} color='black' />
+  ),
+  }} />
+      <Drawer.Screen name='Peli' 
+      component={CurrentGame} 
+      options={{
+      drawerIcon: ({ color, size }) => (
+      <Feather name='play' size={24} color='black' />      
+  ),
+  }}/>
+      <Drawer.Screen name='Kartta' 
+      component={Map}
+      options={{
+      drawerIcon: ({ color, size }) => (
+      <Feather name='map-pin' size={size} color='black' />
+   ),
+  }}/>
+      <Drawer.Screen name='Asetukset' 
+      component={Settings}
+      options={{
+      drawerIcon: ({ color, size }) => (
+      <Feather name='settings' size={size} color='black' />
+  ),
+  }}/>
     </Drawer.Navigator>
   );
 }
