@@ -10,7 +10,7 @@ type Address = {
     courseStreetaddress:string,
     courseTown:string,
     coursePostalcode:string
-    difficulty:string,
+    courseDifficulty:string,
     latitude: number;
     longitude: number;
     holes: {
@@ -41,6 +41,7 @@ export default function Map(){
     });
     const [Selected, setSelected] = useState<Address | null>(null)
     const [showInfo, setShowInfo] = useState(false);
+    const [clickedSource, setClickedSourse] = useState<'marker' | 'map'>('map');
 
     const fetchData = () => {
        fetch('https://dev-discgolf.herokuapp.com/courses')
@@ -52,16 +53,7 @@ export default function Map(){
         fetchData();
     },[])
 
-    const handleMarkerPress = (address: Address) => {
-        setSelected(address);
-        mapRef.current?.animateToRegion({
-            latitude: address.latitude,
-            longitude: address.longitude,
-            latitudeDelta: 0.02,
-            longitudeDelta: 0.02
-        })
-    }
-
+    
     const markers = () => {
         return addresses.map((address)=> {
             const lat = address.latitude;
@@ -71,43 +63,38 @@ export default function Map(){
                 <Marker
                 key={address.courseId}
                 coordinate={{latitude:lat, longitude:lng}}
-                onPress={()=> handleMarkerPress(address)}
+                onPress={(e)=> {
+                    e.stopPropagation();
+                    handleMarkerPress(address)}}
                 >
                 </Marker>
         )});
     };
-
+    
     const etsiRata = async () => {
-        const locations:search = await new Promise((resolve,reject)=> {
-        fetch(`http://www.mapquestapi.com/geocoding/v1/address?key=hygsYyYwV63LComSV4XwfgYS0bSuGle6&location=${input}`)
-        .then(res => res.json())
-        .then(data => {
-            const lat = data.results[0].locations[0].latLng.lat;
-            const lng = data.results[0].locations[0].latLng.lng;
-            const streetName = data.results[0].locations[0].street;
-            resolve ({
-                name: streetName,
-                locations: {
-                    latitude:lat,
-                    longitude:lng
-                }
-            });
-            })
-            .catch(err => reject(err));
-        });
-        setSearchResult(locations);
+        
         return(
             <Marker
             coordinate={searchResult.locations}>
             </Marker>
         )
     }
+    const handleMarkerPress = (address: Address) => {
+        setSelected(address);
+        setShowInfo(true);
+        mapRef.current?.animateToRegion({
+            latitude: address.latitude,
+            longitude: address.longitude,
+            latitudeDelta: 0.02,
+            longitudeDelta: 0.02
+        })
+        setClickedSourse('marker');
+    }
 
     const handleMapPress = () => {
-        if (Selected) {
-            setSelected(null)
-        }
-        
+        setClickedSourse('map')
+        setSelected(null);
+        setShowInfo(false);   
     };
 
     return(
@@ -126,14 +113,14 @@ export default function Map(){
                         Etsi...
                     </Button>
             </View>
-            {Selected && (
+            {Selected && showInfo && (
                 <View style={styles.informationContainer}>
                     <View style={styles.informationContainerHeader}>
                         <Text style={styles.informationTextHeader}>{Selected?.courseName}</Text>
                     </View>
                 <View style={styles.informationContainerBody}>
                     <View>
-                        <Text style={styles.informationText}>Vaikeustaso: {Selected?.difficulty}</Text>
+                        <Text style={styles.informationText}>Vaikeustaso: {Selected?.courseDifficulty}</Text>
                         <Text style={styles.informationText}>Väylien määrä: {Selected?.holes.length}</Text>
                     </View>
                     <Button style={styles.informationButton} onPress={() => setSelected(null)}>
