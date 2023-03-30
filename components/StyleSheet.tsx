@@ -6,7 +6,7 @@ import { color } from 'react-native-reanimated';
         text: {
             fontSize:13,
             fontWeight: 'bold',
-            color: 'white'
+            color: 'black'
         },
 
         avatarView: {
@@ -33,18 +33,35 @@ import { color } from 'react-native-reanimated';
             alignItems: 'center',
         },
 
+        throwCounterView: {
+            flexDirection: 'row',
+            justifyContent: 'center',
+            marginTop: '5%'
+            
+        },
+
         throwButtonView: {
           alignItems: 'center',
           flexDirection: 'row',
         },
 
+        throwCounterText: {
+          fontWeight: 'bold',
+          color: 'black',
+          alignItems: 'center',
+          fontSize: 30,
+          marginTop: '5%',
+          lineHeight: 30,
+
+        },
+
         throwButton: {
           alignItems: 'center',
-          width: '10%',
+          width: '30%',
+          height: '120%',
           backgroundColor: 'green',
-          marginLeft: '4%',
-          marginTop: '4%',
-          marginRight: '3%',
+          marginLeft: '10%',
+          marginRight: '8%',
           borderColor: '#336600',
           borderWidth: 1,
           borderRadius: 50,
