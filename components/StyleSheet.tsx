@@ -198,6 +198,49 @@ import { color } from 'react-native-reanimated';
             borderWidth: 3,
           },
 
+          registrationView: {
+            height: '100%',
+            width: '100%',
+            alignItems: 'center',
+            justifyContent: 'center',
+          },
+          registrationContainer: {
+            height: '100%',
+            width: '100%',
+            alignItems: 'center',
+            justifyContent: 'center',
+          },
+          regInput: {
+            backgroundColor: 'white',
+            width: '80%',
+            height: '80%',
+            borderRadius: 10,
+            borderColor: '#336600',
+            borderWidth: 1,
+            paddingTop:20,
+            paddingBottom: 20,
+            paddingLeft: 10,
+          },
+          regButton: {
+            backgroundColor: 'green',
+            width: '80%',
+            height: '40%',
+            borderRadius: 20,
+            borderColor: '#336600',
+            borderWidth: 1,
+            marginTop: 5,
+          },
+          regButtonView: {
+            width: '80%',
+            height: '25%',
+            marginTop: 10,
+            alignItems: 'center',
+          },
+          regText: {
+            color: 'black',
+            fontSize: 20,
+            fontWeight: 'bold',
+          },
     });
 
     export { styles }
