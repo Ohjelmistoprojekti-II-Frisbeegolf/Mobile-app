@@ -1,8 +1,6 @@
 import { Text, View, Button } from 'native-base';
 import React, { useState, useEffect } from 'react';
 import { styles } from './StyleSheet';
-import { ActivityIndicator, GestureResponderEvent } from 'react-native'
-import Carousel from 'react-native-reanimated-carousel';
 
 interface Course {
     courseId: number,
@@ -33,7 +31,6 @@ export default function CurrentGame({ navigation }: { navigation: any }) {
     });
     const [strokes, setStrokes] = useState<Stroke[]>([]);
     const [index, setIndex] = useState<number>(0);
-    const [isLoading, setIsLoading] = useState<boolean>(true);
 
 
     useEffect(() => fetchData(), []);
