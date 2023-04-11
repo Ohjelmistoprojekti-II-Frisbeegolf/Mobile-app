@@ -239,6 +239,30 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: 'bold',
   },
+  title: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    marginBottom: 10,
+    color: 'green'
+ },
+ input: {
+    backgroundColor: 'white',
+    height: 40,
+    width: '80%',
+    borderRadius: 10,
+    paddingHorizontal: 10,
+    marginBottom: 10,
+    borderWidth: 1,
+    borderColor: 'green'
+},
+
+loginContainer: {
+  display:'flex',
+  width:'100%',
+  position:'absolute',
+  alignItems:'center',
+  justifyContent: 'center',
+}
 });
 
 export { styles }
