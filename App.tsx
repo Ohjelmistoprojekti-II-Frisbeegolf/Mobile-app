@@ -7,6 +7,7 @@ import MyDrawer from './components/Menu';
 import LoginScreen from './components/LoginScreen';
 import CurrentGame from './components/CurrentGame';
 import ChooseCourse from './components/ChooseCourse';
+import Registration from './components/Registration';
 
 const Stack = createStackNavigator();
 
@@ -30,11 +31,21 @@ export default function App() {
                 backgroundColor: 'green',
               },headerTintColor: 'white',
           }}/>
+              
             </>
           ) : (
+            <>
             <Stack.Screen name='Kirjaudu'>
               {(props) => <LoginScreen {...props} setLoggedIn={setLoggedIn} />}
             </Stack.Screen>
+            <Stack.Screen
+                name="Rekisteröidy"
+                component={Registration}
+                options={{headerStyle:{
+                backgroundColor: 'green',
+              },headerTintColor: 'white',
+            }}/>
+          </>
           )}
         </Stack.Navigator>
       </NavigationContainer>
