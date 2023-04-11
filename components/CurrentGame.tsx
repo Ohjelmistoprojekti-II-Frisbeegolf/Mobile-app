@@ -1,8 +1,17 @@
 import {Text,View,Button} from 'native-base';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { styles } from './StyleSheet';
-import { TouchableOpacity } from 'react-native';
-import { FlatList } from 'react-native-gesture-handler';
+import { ActivityIndicator } from 'react-native'
+
+interface Course {
+    courseId: number,
+    courseName: string,
+    holes: {
+        holeId: number,
+        holeNumber: number,
+        holePar: number,
+    }
+}
 
 const ThrowCounter = () => {
     const [throwCount, setThrowCount] = useState(0);
@@ -31,10 +40,36 @@ const ThrowCounter = () => {
 
 export default function CurrentGame({navigation}:  {navigation: any}) {
 
+    const [repository, setRepository] = useState<Course>({
+        courseId: 1,
+        courseName: "",
+        holes: {
+            holeId: 1,
+            holeNumber: 1,
+            holePar: 1,
+            }
+    });
+    
+
+    useEffect(() => fetchData(),[]);
+
+    const fetchData = () => {
+        fetch('https://dev-discgolf.herokuapp.com/courses/1')
+        .then(res => res.json())
+        .then(data => {
+            setRepository(data)
+        }
+        )
+        .catch(err => console.log(err))
+        console.log(repository.holes)
+    }
+
     return(
         <View style={styles.view}>
-        <Text style={styles.header}> Heitot: </Text>
-        <View style={{marginBottom: '130%'}}>
+            <Text style={styles.header}>Väylä: {repository.holeNumber}</Text>
+            <Text style={styles.header}>Par: {repository.holePar}</Text>
+            <Text style={styles.header}> Heitot: </Text>
+        <View style={{marginBottom: '120%'}}>
             <ThrowCounter />
         </View>
         <View style={styles.throwButtonView}>

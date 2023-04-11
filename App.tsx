@@ -5,7 +5,8 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import MyDrawer from './components/Menu';
 import LoginScreen from './components/LoginScreen';
-import Firstpage from './components/Firstpage';
+import CurrentGame from './components/CurrentGame';
+import ChooseCourse from './components/ChooseCourse';
 
 const Stack = createStackNavigator();
 
@@ -18,7 +19,17 @@ export default function App() {
         <Stack.Navigator>
           {loggedIn ? (
             <>
-              <Stack.Screen name='MyDrawer' component={MyDrawer} options={{ headerShown: false }} />
+              <Stack.Screen 
+                name='Poistu' 
+                component={MyDrawer} 
+                options={{ headerShown: false }} />
+              <Stack.Screen
+                name=" "
+                component={CurrentGame}
+                options={{headerStyle:{
+                backgroundColor: 'green',
+              },headerTintColor: 'white',
+          }}/>
             </>
           ) : (
             <Stack.Screen name='Kirjaudu'>

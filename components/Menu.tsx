@@ -9,6 +9,7 @@ import Map from './Map';
 import Weather from './Weather';
 import { Avatar, Button } from "native-base";
 import { Feather } from '@expo/vector-icons';
+import ChooseCourse from './ChooseCourse';
 
 const Drawer = createDrawerNavigator();
 
@@ -84,7 +85,7 @@ export default function MyDrawer() {
   ),
   }} />
       <Drawer.Screen name='Peli' 
-      component={CurrentGame} 
+      component={ChooseCourse} 
       options={{
       drawerIcon: ({ color, size }) => (
       <Feather name='play' size={24} color='black' />      
