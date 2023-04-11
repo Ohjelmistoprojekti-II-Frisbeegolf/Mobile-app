@@ -7,7 +7,10 @@ interface User {
     userId: number,
     username:string,
     password:string,
-    role:string
+    role:string,
+    totalThrowsThrown: number,
+    totalSteps: number,
+    totalTimePlayed: number,
 }
 export default function Profile(){
 
@@ -15,7 +18,10 @@ export default function Profile(){
         userId: 1,
         username:"",
         password:"",
-        role:""
+        role:"",
+        totalThrowsThrown: 0,
+        totalSteps: 0,
+        totalTimePlayed: 0,
     });
     const [loading, setLoading] = useState(true);
 
