@@ -1,32 +1,41 @@
-import { createDrawerNavigator } from '@react-navigation/drawer';
+import { createDrawerNavigator, DrawerContentScrollView, DrawerItemList } from '@react-navigation/drawer';
 import Firstpage from './Firstpage';
 import Profile from './Profile';
 import Settings from './Settings';
-<<<<<<< Updated upstream
-=======
 import CurrentGame from './CurrentGame';
 import { useWindowDimensions, View, Text} from 'react-native';
 import { styles } from './StyleSheet';
 import Map from './Map';
 import Weather from './Weather';
-import LoginScreen from './LoginScreen';
 import { Avatar, Button } from "native-base";
 import { Feather } from '@expo/vector-icons';
-import { Login } from '@mui/icons-material';
->>>>>>> Stashed changes
 
 const Drawer = createDrawerNavigator();
 
-export default function MyDrawer() {
-<<<<<<< Updated upstream
+type CustomDrawerContentProps = {
+  props: any;
+};
+
+function CustomDrawerContent({ props }: CustomDrawerContentProps) {
   return (
-    <Drawer.Navigator>
-      <Drawer.Screen name="Etusivu" component={Firstpage} />
-      <Drawer.Screen name="Profiili" component={Profile} />
-      <Drawer.Screen name="Asetukset" component={Settings} />
-=======
-  const dimensions = useWindowDimensions();
+    <DrawerContentScrollView {...props}>
+      <View style={styles.avatarView}>
+            <Avatar style={styles.avatarDrawer} source={{
+            uri: "https://images.unsplash.com/photo-1603415526960-f7e0328c63b1?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80"
+            }}/>
+      </View>
+      <DrawerItemList {...props} />
+      <View style={styles.weatherView}>
+        <Weather />
+      </View>
+    </DrawerContentScrollView>
+  );
+}
+
   
+export default function MyDrawer() {
+  const dimensions = useWindowDimensions();
+
   return (
     <Drawer.Navigator
     drawerContent={(props) => <CustomDrawerContent props={props} />}
@@ -59,7 +68,7 @@ export default function MyDrawer() {
     
     }}>
       <Drawer.Screen
-      name='Etusivu' 
+      name="Etusivu" 
       component={Firstpage} 
       options={{
       drawerIcon: ({ color, size }) => (
@@ -95,15 +104,6 @@ export default function MyDrawer() {
       <Feather name='settings' size={size} color='black' />
   ),
   }}/>
-      <Drawer.Screen name='Kirjautuminen' 
-      component={LoginScreen}
-      options={{
-      drawerIcon: ({ color, size }) => (
-      <Feather name='settings' size={size} color='black' />
-  ),
-  }}/>
-
->>>>>>> Stashed changes
     </Drawer.Navigator>
   );
 }

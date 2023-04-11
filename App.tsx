@@ -18,18 +18,15 @@ export default function App() {
         <Stack.Navigator>
           {loggedIn ? (
             <>
-              <Stack.Screen name='Firstpage' component={Firstpage} />
-              <Stack.Screen name='MyDrawer' component={MyDrawer} />
+              <Stack.Screen name='MyDrawer' component={MyDrawer} options={{headerShown: false}} />
             </>
           ) : (
-            <Stack.Screen name='Kirjaudu' component={LoginScreen} />
+            <Stack.Screen name='Kirjaudu'>
+              {(props) => <LoginScreen {...props} setLoggedIn={setLoggedIn} />}
+            </Stack.Screen>
           )}
         </Stack.Navigator>
       </NavigationContainer>
     </NativeBaseProvider>
   );
 }
-<<<<<<< Updated upstream
-
-=======
->>>>>>> Stashed changes
