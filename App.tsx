@@ -18,7 +18,7 @@ export default function App() {
         <Stack.Navigator>
           {loggedIn ? (
             <>
-              <Stack.Screen name='MyDrawer' component={MyDrawer} options={{headerShown: false}} />
+              <Stack.Screen name='MyDrawer' component={MyDrawer} options={{ headerShown: false }} />
             </>
           ) : (
             <Stack.Screen name='Kirjaudu'>
@@ -30,3 +30,6 @@ export default function App() {
     </NativeBaseProvider>
   );
 }
+
+
+// <MyDrawer/>
