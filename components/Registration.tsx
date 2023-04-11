@@ -62,7 +62,7 @@ export default function Registration({navigation}:  {navigation: any}) {
                 });
                 if(res.ok) {
                     alert('Rekisteröinti onnistui');
-                    navigation.navigate('Etusivu', {screen: 'Kirjautuminen'});
+                    navigation.navigate('Kirjaudu');
                     
                 } else if (res.status === 401) {
                     setMessage('Salasanat eivät täsmää');
