@@ -22,7 +22,7 @@ interface Stroke {
     score: number
 }
 
-export default function CurrentGame({ navigation }: { navigation: any }) {
+export default function CurrentGame({ route, navigation }: any) {
 
     const [repository, setRepository] = useState<Course>({
         courseId: 1,
@@ -32,29 +32,21 @@ export default function CurrentGame({ navigation }: { navigation: any }) {
     const [strokes, setStrokes] = useState<Stroke[]>([]);
     const [index, setIndex] = useState<number>(0);
 
-
     useEffect(() => fetchData(), []);
 
     useEffect(() => {
-        setStrokes(repository.holes.map(hole => { return ({ hole: hole, gameId: 4, courseId: 1, score: 0 }) }))
+        setStrokes(repository.holes.map(hole => { return ({ hole: hole, gameId: 4, courseId: route.params.courseId, score: 0 }) }))
     }, [repository]);
 
     const handleStroke = (index: number, operator: string) => {
-        if (operator === '+') {
-            const data = [...strokes];
-            data[index].score = data[index].score + 1;
-            setStrokes(data);
-        } else {
-            const data = [...strokes];
-            data[index].score = data[index].score - 1;
-            setStrokes(data);
-        }
-        console.log(strokes)
+        const data = [...strokes];
+        data[index].score = operator === "-" ? data[index].score - 1 : data[index].score + 1
+        setStrokes(data);
+        console.log(strokes[index])
     }
 
-
     const fetchData = () => {
-        fetch('https://dev-discgolf.herokuapp.com/courses/1')
+        fetch(`https://dev-discgolf.herokuapp.com/courses/${route.params.courseId}`)
             .then(res => res.json())
             .then(data => {
                 setRepository(data)
@@ -69,8 +61,17 @@ export default function CurrentGame({ navigation }: { navigation: any }) {
             :
             <View style={styles.view}>
                 <View style={styles.throwButtonView}>
-                    <Button _pressed={{ opacity: 0.5 }} style={styles.nextPreviousButton} onPress={() => setIndex(index - 1)} >Edellinen väylä (#)</Button>
-                    <Button _pressed={{ opacity: 0.5 }} style={styles.nextPreviousButton} onPress={() => setIndex(index + 1)} >Seuraava väylä (#)</Button>
+                    <Button
+                        _pressed={{ opacity: 0.5 }}
+                        isDisabled={index === 0}
+                        style={styles.nextPreviousButton}
+                        onPress={() => setIndex(index - 1)} >Edellinen väylä (#)
+                    </Button>
+                    <Button
+                        _pressed={{ opacity: 0.5 }}
+                        isDisabled={index === strokes.length - 1}
+                        style={styles.nextPreviousButton}
+                        onPress={() => setIndex(index + 1)} >Seuraava väylä (#)</Button>
                 </View>
                 <Text style={styles.header}>Väylä: {strokes[index].hole.holeNumber}</Text>
                 <Text style={styles.header}>Par: {strokes[index].hole.holePar}</Text>
@@ -81,6 +82,7 @@ export default function CurrentGame({ navigation }: { navigation: any }) {
                         <Button
                             _pressed={{ opacity: 0.5 }}
                             style={styles.throwButton}
+                            isDisabled={strokes[index].score === 0}
                             onPress={() => handleStroke(index, '-')}
                         >
                             -

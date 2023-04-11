@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, Button, Text, Select } from 'native-base';
+import { View, Button, Text, Select, FormControl } from 'native-base';
 import { styles } from './StyleSheet';
 
 
@@ -8,36 +8,37 @@ interface Course {
     courseName: string
 }
 
-export default function ChooseCourse({navigation}: {navigation:any}) {
-    const [repository, setRepository] = useState<Course>({
-        courseId: 1,
-        courseName: "",
-    })
+export default function ChooseCourse({ navigation }: { navigation: any }) {
+    const [repository, setRepository] = useState<Course[]>([]);
+    const [courseId, setCourseId] = useState<number>(-1);
 
-    useEffect(() => fetchData(),[]);
+    useEffect(() => fetchData(), []);
 
     const fetchData = () => {
-        fetch('https://dev-discgolf.herokuapp.com/courses/1')
-        .then(res => res.json())
-        .then(data => {
-            setRepository(data)}
-        )
-        .catch(err => console.log(err))
-        console.log(repository)
+        fetch('https://dev-discgolf.herokuapp.com/courses')
+            .then(res => res.json())
+            .then(data => {
+                setRepository(data)
+            }
+            )
+            .catch(err => console.log(err))
     }
-    
-    
-    return(
+
+    console.log(courseId)
+
+
+    return (
         <View style={styles.view}>
             <Text style={styles.header}>Valitse rata: </Text>
-            <Select accessibilityLabel="Valitse rata" placeholder="Valitse rata" minWidth='200'>
-                <Select.Item label={repository.courseName} value={repository.courseName} />
+            <Select accessibilityLabel="Valitse rata" placeholder="Valitse rata" minWidth='200' onValueChange={value => setCourseId(parseInt(value))}>
+                {repository.map(course => <Select.Item label={course.courseName} value={course.courseId.toString()} key={course.courseId} />)}
             </Select>
             <Button
                 _pressed={{ opacity: 0.5 }}
+                isDisabled={courseId < 0}
                 style={styles.button}
-                onPress= { () => navigation.navigate(' ')}>
-                <Text style={{fontSize:22, color:'white'}}>Aloita peli!</Text>
+                onPress={() => navigation.navigate(' ', { courseId: courseId })}>
+                <Text style={{ fontSize: 22, color: 'white' }}>Aloita peli!</Text>
             </Button>
         </View>
     )
