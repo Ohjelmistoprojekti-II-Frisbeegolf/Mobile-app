@@ -51,6 +51,7 @@ export default function LoginScreen({ navigation, setLoggedIn }: { navigation: a
         secureTextEntry
       />
       <Button title='Kirjaudu' onPress={handleLogin} />
+      <Button title='Rekisteröidy' onPress={() => navigation.navigate("Rekisteröidy")} />
     </View>
   );
 }
