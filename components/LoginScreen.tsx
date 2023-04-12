@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Text, View, TextInput, Button } from 'react-native';
+import { Text, View, TextInput, Button, TouchableOpacity } from 'react-native';
 import { styles } from './StyleSheet';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -24,8 +24,7 @@ export default function LoginScreen({ navigation, setLoggedIn }: { navigation: a
         const data = await response.json();
         const token = data.token;
         await AsyncStorage.setItem('token', token);
-        console.log('Success!');
-        setLoggedIn(true); // set loggedIn state to true
+        setLoggedIn(true); 
       } else {
         alert('Virheellinen käyttäjätunnus tai salasana');
       }
@@ -36,7 +35,6 @@ export default function LoginScreen({ navigation, setLoggedIn }: { navigation: a
 
   return (
     <View style={styles.loginContainer}>
-      <Text style={styles.title}>Kirjaudu sisään</Text>
       <TextInput
         style={styles.input}
         placeholder='Käyttäjätunnus'
@@ -50,8 +48,15 @@ export default function LoginScreen({ navigation, setLoggedIn }: { navigation: a
         onChangeText={setPassword}
         secureTextEntry
       />
-      <Button title='Kirjaudu' onPress={handleLogin} />
-      <Button title='Rekisteröidy' onPress={() => navigation.navigate("Rekisteröidy")} />
+    <View/>
+    <View style={styles.regButtonView}>
+    <TouchableOpacity style={styles.loginPageButton} onPress={handleLogin}>
+    <Text style={[{ color: 'white' }]}>Kirjaudu</Text>
+    </TouchableOpacity>
+    <TouchableOpacity style={styles.loginPageButton} onPress={() => navigation.navigate('Rekisteröidy')}>
+    <Text style={[{ color: 'white' }]}>Rekisteröidy</Text>
+    </TouchableOpacity>
+    </View>
     </View>
   );
 }
