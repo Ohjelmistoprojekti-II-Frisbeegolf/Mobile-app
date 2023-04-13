@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, Image } from 'native-base';
 import { styles } from './StyleSheet';
 import * as Location from 'expo-location';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 interface WeatherData {
@@ -33,6 +34,7 @@ export default function Weather() {
 
   useEffect(() => {
     const fetchWeatherData = async () => {
+      const token = await AsyncStorage.getItem('token')
       try {
         const { status } = await Location.requestForegroundPermissionsAsync();
         if (status != 'granted') {
@@ -43,7 +45,11 @@ export default function Weather() {
         const location = await Location.getCurrentPositionAsync({});
         const { latitude, longitude } = location.coords;
 
-        const response = await fetch(`https://dev-discgolf.herokuapp.com/weather?lat=${latitude}&lon=${longitude}`);
+        const response = await fetch(`https://dev-discgolf.herokuapp.com/weather?lat=${latitude}&lon=${longitude}`,{
+          headers: {
+            'Authorization': `Bearer ${token}`
+        }
+        })
         const data = await response.json();
         setIncomingImageLink(`https://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`);
         setWeatherData(data);

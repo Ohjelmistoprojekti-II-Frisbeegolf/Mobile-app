@@ -43,18 +43,22 @@ export default function Map(){
     const [Selected, setSelected] = useState<Address | null>(null)
     const [showInfo, setShowInfo] = useState(false);
     const [clickedSource, setClickedSourse] = useState<'marker' | 'map'>('map');
-
-    const fetchData = () => {
-       fetch('https://dev-discgolf.herokuapp.com/courses', {
-        headers: {'Authorization': `Bearer ${AsyncStorage.getItem('token')}`}
-       })
-       .then(res => res.json())
-       .then(data => setAdresses(data))
+    const fetchData = async () => {
+        const token = await AsyncStorage.getItem('token')
+        console.log(`Bearer ${token}`)
+        const response = await fetch('https://dev-discgolf.herokuapp.com/courses', {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        });
+        const data = await response.json();
+        setAdresses(data);
     }
 
     useEffect(() => {
         fetchData();
-    },[])
+    }, [])
+
 
     
     const markers = () => {
