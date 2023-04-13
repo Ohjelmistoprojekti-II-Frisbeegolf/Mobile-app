@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { View, Button, Text, Select, FormControl } from 'native-base';
 import { styles } from './StyleSheet';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 interface Course {
@@ -12,19 +13,21 @@ export default function ChooseCourse({ navigation }: { navigation: any }) {
     const [repository, setRepository] = useState<Course[]>([]);
     const [courseId, setCourseId] = useState<number>(-1);
 
-    useEffect(() => fetchData(), []);
-
-    const fetchData = () => {
-        fetch('https://dev-discgolf.herokuapp.com/courses')
-            .then(res => res.json())
-            .then(data => {
-                setRepository(data)
+    const fetchData = async () => {
+        const token = await AsyncStorage.getItem('token')
+        console.log(`Bearer ${token}`)
+        const response = await fetch('https://dev-discgolf.herokuapp.com/courses', {
+            headers: {
+                'Authorization': `Bearer ${token}`
             }
-            )
-            .catch(err => console.log(err))
+        });
+        const data = await response.json();
+        setRepository(data);
     }
 
-    console.log(courseId)
+    useEffect(() => {
+        fetchData();
+    }, [])
 
 
     return (

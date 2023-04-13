@@ -1,7 +1,7 @@
 import { Text, View, Button } from 'native-base';
 import React, { useState, useEffect } from 'react';
 import { styles } from './StyleSheet';
-
+import AsyncStorage from '@react-native-async-storage/async-storage';
 interface Course {
     courseId: number,
     courseName: string,
@@ -32,8 +32,6 @@ export default function CurrentGame({ route, navigation }: any) {
     const [strokes, setStrokes] = useState<Stroke[]>([]);
     const [index, setIndex] = useState<number>(0);
 
-    useEffect(() => fetchData(), []);
-
     useEffect(() => {
         setStrokes(repository.holes.map(hole => { return ({ hole: hole, gameId: 4, courseId: route.params.courseId, score: 0 }) }))
     }, [repository]);
@@ -45,15 +43,23 @@ export default function CurrentGame({ route, navigation }: any) {
         console.log(strokes[index])
     }
 
-    const fetchData = () => {
-        fetch(`https://dev-discgolf.herokuapp.com/courses/${route.params.courseId}`)
-            .then(res => res.json())
-            .then(data => {
-                setRepository(data)
+    const fetchData = async () => {
+        const token = await AsyncStorage.getItem('token')
+        console.log(`Bearer ${token}`)
+        const response = await fetch(`https://dev-discgolf.herokuapp.com/courses/${route.params.courseId}`, {
+            headers: {
+                'Authorization': `Bearer ${token}`
             }
-            )
-            .catch(err => console.log(err))
+        });
+        const data = await response.json();
+        setRepository(data);
     }
+
+    useEffect(() => {
+        fetchData();
+    }, [])
+
+      
 
     return (
         strokes.length < 1 ?

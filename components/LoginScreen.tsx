@@ -16,13 +16,13 @@ export default function LoginScreen({ navigation, setLoggedIn }: { navigation: a
           password: password,
         }),
         headers: {
-          'Content-Type': 'application/json',
-        },
+          'Content-Type': 'application/json'        },
       });
 
       if (response.ok) {
         const data = await response.json();
         const token = data.token;
+        console.log(token);
         await AsyncStorage.setItem('token', token);
         setLoggedIn(true); 
       } else {

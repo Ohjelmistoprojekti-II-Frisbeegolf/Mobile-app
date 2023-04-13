@@ -3,6 +3,7 @@ import React, {useState,useEffect} from 'react'
 import { Text, View, Button, ChevronRightIcon} from 'native-base'
 import { styles } from './StyleSheet';
 import { Input,} from 'native-base';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 type Address = {
     courseId:number,
@@ -44,7 +45,9 @@ export default function Map(){
     const [clickedSource, setClickedSourse] = useState<'marker' | 'map'>('map');
 
     const fetchData = () => {
-       fetch('https://dev-discgolf.herokuapp.com/courses')
+       fetch('https://dev-discgolf.herokuapp.com/courses', {
+        headers: {'Authorization': `Bearer ${AsyncStorage.getItem('token')}`}
+       })
        .then(res => res.json())
        .then(data => setAdresses(data))
     }

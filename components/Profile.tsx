@@ -2,6 +2,7 @@ import React, {useState,useEffect} from 'react'
 import { View,Avatar,Text,Box, FlatList} from 'native-base';
 import { styles } from './StyleSheet';
 import { ActivityIndicator } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 interface User {
     userId: number,
@@ -25,18 +26,22 @@ export default function Profile(){
     });
     const [loading, setLoading] = useState(true);
 
-    useEffect(()=>fetchData(),[]);
-
-    const fetchData = () => {
-        fetch('https://dev-discgolf.herokuapp.com/users/1')
-        .then(res => res.json())
-        .then(data =>{ 
-            setRepository(data)
-            setLoading(false)}
-        )
-        .catch(err => console.log(err))
-        console.log(repository)
+    const fetchData = async () => {
+        const token = await AsyncStorage.getItem('token')
+        console.log(`Bearer ${token}`)
+        const response = await fetch('https://dev-discgolf.herokuapp.com/users/current', {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        });
+        const data = await response.json();
+        setRepository(data);
     }
+
+    useEffect(() => {
+        fetchData();
+    }, [])
+
     return (
         <View>
             <View style={styles.view}>
