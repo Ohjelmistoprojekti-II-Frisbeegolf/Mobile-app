@@ -21,9 +21,10 @@ export default function App() {
           {loggedIn ? (
             <>
               <Stack.Screen 
-                name='Poistu' 
-                component={MyDrawer} 
-                options={{ headerShown: false }} />
+                name='Poistu'   
+                options={{ headerShown: false }}>
+                {(props) => <MyDrawer {...props} setLoggedIn={setLoggedIn} />}
+                </Stack.Screen>
               <Stack.Screen
                 name=" "
                 component={CurrentGame}
