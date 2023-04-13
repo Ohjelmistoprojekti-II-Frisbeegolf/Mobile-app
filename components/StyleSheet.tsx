@@ -204,6 +204,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+
   regInput: {
     backgroundColor: 'white',
     width: '80%',
@@ -226,6 +227,7 @@ const styles = StyleSheet.create({
     borderColor: '#336600',
     borderWidth: 1,
     marginTop: 5,
+  
   },
   regButtonView: {
     width: '100%',
@@ -245,7 +247,8 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     color: 'green'
  },
- input: {
+
+  input: {
     backgroundColor: 'white',
     height: 40,
     width: '80%',
@@ -256,13 +259,25 @@ const styles = StyleSheet.create({
     borderColor: 'green'
 },
 
-loginContainer: {
-  display:'flex',
-  width:'100%',
-  position:'absolute',
-  alignItems:'center',
-  justifyContent: 'center',
-}
+  loginContainer: {
+    height: '60%',
+    width: '100%',
+    alignItems: 'center',
+    justifyContent: 'center',
+},
+
+  loginPageButton:{
+    backgroundColor: 'green',
+    width: '50%',
+    height: '40%',
+    borderRadius: 10,
+    borderColor: '#336600',
+    borderWidth: 1,
+    marginTop: 5,
+    justifyContent: 'center', 
+    alignItems: 'center',
+},
+  
 });
 
 export { styles }

@@ -35,7 +35,11 @@ export default function App() {
             </>
           ) : (
             <>
-            <Stack.Screen name='Kirjaudu'>
+            <Stack.Screen name='Kirjaudu sisään'
+              options={{headerStyle:{
+              backgroundColor: 'green',
+              },headerTintColor: 'white',
+            }}>
               {(props) => <LoginScreen {...props} setLoggedIn={setLoggedIn} />}
             </Stack.Screen>
             <Stack.Screen
