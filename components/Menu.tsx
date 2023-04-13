@@ -34,9 +34,9 @@ function CustomDrawerContent({ props }: CustomDrawerContentProps) {
 }
 
 
-export default function MyDrawer() {
+export default function MyDrawer(props: any) {
   const dimensions = useWindowDimensions();
-
+  const {setLoggedIn} = props;
   return (
     <Drawer.Navigator
       drawerContent={(props) => <CustomDrawerContent props={props} />}
@@ -101,12 +101,13 @@ export default function MyDrawer() {
           ),
         }} />
       <Drawer.Screen name='Asetukset'
-        component={Settings}
         options={{
           drawerIcon: ({ color, size }) => (
             <Feather name='settings' size={size} color='black' />
           ),
-        }} />
+        }}>
+        {() => <Settings setLoggedIn={setLoggedIn} />}
+        </Drawer.Screen>
     </Drawer.Navigator>
   );
 }
