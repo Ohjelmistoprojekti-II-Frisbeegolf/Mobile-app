@@ -60,24 +60,11 @@ export default function CurrentGame({ route, navigation }: any) {
             <View></View>
             :
             <View style={styles.view}>
-                <View style={styles.throwButtonView}>
-                    <Button
-                        _pressed={{ opacity: 0.5 }}
-                        isDisabled={index === 0}
-                        style={styles.nextPreviousButton}
-                        onPress={() => setIndex(index - 1)} >Edellinen väylä (#)
-                    </Button>
-                    <Button
-                        _pressed={{ opacity: 0.5 }}
-                        isDisabled={index === strokes.length - 1}
-                        style={styles.nextPreviousButton}
-                        onPress={() => setIndex(index + 1)} >Seuraava väylä (#)</Button>
-                </View>
                 <Text style={styles.header}>Väylä: {strokes[index].hole.holeNumber}</Text>
                 <Text style={styles.header}>Par: {strokes[index].hole.holePar}</Text>
                 <Text style={styles.header}>Pituus: {strokes[index].hole.holeLength}m</Text>
                 <Text style={styles.header}> Heitot: </Text>
-                <View style={{ marginBottom: '120%' }}>
+                <View style={{ marginBottom: '100%' }}>
                     <View style={styles.throwCounterView}>
                         <Button
                             _pressed={{ opacity: 0.5 }}
@@ -97,7 +84,19 @@ export default function CurrentGame({ route, navigation }: any) {
                         </Button>
                     </View>
                 </View>
-
+                    <View style={styles.throwButtonView}>
+                        <Button
+                            _pressed={{ opacity: 0.5 }}
+                            isDisabled={index === 0}
+                            style={styles.nextPreviousButton}
+                            onPress={() => setIndex(index - 1)} >Edellinen väylä
+                        </Button>
+                        <Button
+                            _pressed={{ opacity: 0.5 }}
+                            isDisabled={index === strokes.length - 1}
+                            style={styles.nextPreviousButton}
+                            onPress={() => setIndex(index + 1)} >Seuraava väylä</Button>
+                    </View>
             </View>
     );
 }
