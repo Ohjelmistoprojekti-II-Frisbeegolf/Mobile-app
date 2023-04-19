@@ -34,16 +34,8 @@ export default function Map(){
     const mapRef = React.useRef<MapView>(null);
     const [addresses, setAdresses] = useState<Address[]>([]);
     const [input, setInput] = useState('');
-    const [searchResult, setSearchResult] = useState<search>({
-        name:"",
-        locations: {
-            latitude:0,
-            longitude:0
-        }
-    });
     const [Selected, setSelected] = useState<Address | null>(null)
     const [showInfo, setShowInfo] = useState(false);
-    const [clickedSource, setClickedSourse] = useState<'marker' | 'map'>('map');
     const fetchData = async () => {
         const token = await AsyncStorage.getItem('token')
         console.log(`Bearer ${token}`)
@@ -79,13 +71,24 @@ export default function Map(){
         )});
     };
     
-    const etsiRata = async () => {
-        
-        return(
-            <Marker
-            coordinate={searchResult.locations}>
-            </Marker>
-        )
+    const etsiRata = async (query:string) => {
+        if (query.length >=   3) {
+            const result: Address | undefined = addresses.find((address) =>
+                address.courseName.toLowerCase().includes(query.toLowerCase())
+            );
+            if (result) {
+                setSelected(result);
+                setShowInfo(true);
+                mapRef.current?.animateToRegion({
+                    latitude: result.latitude,
+                    longitude: result.longitude,
+                    latitudeDelta: 0.02,
+                    longitudeDelta: 0.02,
+                });
+            }
+        } else {
+            alert('Anna tarkempi osoite'); 
+        }
     }
     const handleMarkerPress = (address: Address) => {
         setSelected(address);
@@ -96,11 +99,9 @@ export default function Map(){
             latitudeDelta: 0.02,
             longitudeDelta: 0.02
         })
-        setClickedSourse('marker');
     }
 
     const handleMapPress = () => {
-        setClickedSourse('map')
         setSelected(null);
         setShowInfo(false);   
     };
@@ -117,7 +118,7 @@ export default function Map(){
                     value={input}
                     onChangeText={(text)=>setInput(text)}
                     />
-                    <Button style={styles.mapButton} onPress={() => etsiRata()}>
+                    <Button style={styles.mapButton} onPress={() => etsiRata(input)}>
                         Etsi...
                     </Button>
             </View>
