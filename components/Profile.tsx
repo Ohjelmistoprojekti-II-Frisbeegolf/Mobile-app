@@ -3,6 +3,7 @@ import { View,Avatar,Text,Box, FlatList} from 'native-base';
 import { styles } from './StyleSheet';
 import { ActivityIndicator } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { userurl } from './Url';
 
 interface User {
     userId: number,
@@ -29,7 +30,7 @@ export default function Profile(){
     const fetchData = async () => {
         const token = await AsyncStorage.getItem('token')
         console.log(`Bearer ${token}`)
-        const response = await fetch('https://dev-discgolf.herokuapp.com/users/current', {
+        const response = await fetch(userurl, {
             headers: {
                 'Authorization': `Bearer ${token}`
             }

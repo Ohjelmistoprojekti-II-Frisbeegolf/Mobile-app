@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { View, Button, Text, Select, FormControl } from 'native-base';
 import { styles } from './StyleSheet';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
+import { courseurl } from './Url';
 
 interface Course {
     courseId: number,
@@ -16,7 +16,7 @@ export default function ChooseCourse({ navigation }: { navigation: any }) {
     const fetchData = async () => {
         const token = await AsyncStorage.getItem('token')
         console.log(`Bearer ${token}`)
-        const response = await fetch('https://dev-discgolf.herokuapp.com/courses', {
+        const response = await fetch(courseurl, {
             headers: {
                 'Authorization': `Bearer ${token}`
             }

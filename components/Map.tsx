@@ -4,6 +4,7 @@ import { Text, View, Button, ChevronRightIcon} from 'native-base'
 import { styles } from './StyleSheet';
 import { Input,} from 'native-base';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { courseurl } from './Url';
 
 type Address = {
     courseId:number,
@@ -46,7 +47,7 @@ export default function Map(){
     const fetchData = async () => {
         const token = await AsyncStorage.getItem('token')
         console.log(`Bearer ${token}`)
-        const response = await fetch('https://dev-discgolf.herokuapp.com/courses', {
+        const response = await fetch(courseurl, {
             headers: {
                 'Authorization': `Bearer ${token}`
             }

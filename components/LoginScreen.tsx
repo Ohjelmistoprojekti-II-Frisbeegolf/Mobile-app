@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Text, View, TextInput, Button, TouchableOpacity } from 'react-native';
 import { styles } from './StyleSheet';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { logurl } from './Url';
 
 export default function LoginScreen({ navigation, setLoggedIn }: { navigation: any, setLoggedIn: any }) {
   const [username, setUsername] = useState('');
@@ -9,22 +10,22 @@ export default function LoginScreen({ navigation, setLoggedIn }: { navigation: a
 
   const handleLogin = async () => {
     try {
-      const response = await fetch('https://discgolf-security.herokuapp.com/login', {
+      const response = await fetch(logurl, {
         method: 'POST',
         body: JSON.stringify({
           username: username,
           password: password,
         }),
         headers: {
-          'Content-Type': 'application/json'        },
+          'Content-Type': 'application/json'
+        },
       });
 
       if (response.ok) {
-        const data = await response.json();
-        const token = data.token;
+        const token = response.headers.get("Authorization");
         console.log(token);
-        await AsyncStorage.setItem('token', token);
-        setLoggedIn(true); 
+        await AsyncStorage.setItem('token', token!);
+        setLoggedIn(true);
       } else {
         alert('Virheellinen käyttäjätunnus tai salasana');
       }

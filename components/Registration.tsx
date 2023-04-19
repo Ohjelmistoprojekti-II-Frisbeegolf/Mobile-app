@@ -1,6 +1,7 @@
 import React,{useState,useEffect} from "react";
 import {FormControl, View, Button, Input, VStack, AlertDialog} from 'native-base';
 import { styles } from './StyleSheet';
+import { regurl } from "./Url";
 
 export default function Registration({navigation}:  {navigation: any}) {
     const [data, setData] = useState({username:'', password:'', passwordCheck:''});
@@ -53,7 +54,7 @@ export default function Registration({navigation}:  {navigation: any}) {
         const valid = validate();
         if(valid) {
             try {
-                const res = await fetch('https://discgolf-security.herokuapp.com/register', {
+                const res = await fetch(regurl, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
