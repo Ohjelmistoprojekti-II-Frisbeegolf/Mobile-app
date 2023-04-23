@@ -277,6 +277,29 @@ const styles = StyleSheet.create({
     justifyContent: 'center', 
     alignItems: 'center',
 },
+  searchResultContainer: {
+    backgroundColor: 'white',
+    display: 'flex',
+    width: '95%',
+    position: 'absolute',
+    top:115,
+    maxHeight:200,
+    marginBottom: 10,
+    alignItems: 'center',
+    borderRadius: 5,
+  },
+  searchResultButton: {
+    width:'100%',
+    padding:5,
+    backgroundColor:'#f2f2f2',
+    borderRadius:0,
+  },
+
+  searchResultText:{
+    fontSize:20,
+    padding:5,
+  },
+
   
 });
 
