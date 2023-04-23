@@ -1,6 +1,6 @@
 import MapView, { Marker,Callout } from 'react-native-maps';
 import React, {useState,useEffect} from 'react'
-import { Text, View, Button, ChevronRightIcon} from 'native-base'
+import { ScrollView, Text, View, Button, ChevronRightIcon} from 'native-base'
 import { styles } from './StyleSheet';
 import { Input,} from 'native-base';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -24,11 +24,8 @@ type Address = {
 }
 type search = {
     name:string,
-    locations: {
-        latitude:number,
-        longitude:number
-    }
 }
+
 export default function Map(){
 
     const mapRef = React.useRef<MapView>(null);
@@ -36,6 +33,10 @@ export default function Map(){
     const [input, setInput] = useState('');
     const [Selected, setSelected] = useState<Address | null>(null)
     const [showInfo, setShowInfo] = useState(false);
+    const [searchResult, setSearchResult] = useState<search>({
+        name:"",
+    });
+    
     const fetchData = async () => {
         const token = await AsyncStorage.getItem('token')
         console.log(`Bearer ${token}`)
@@ -58,36 +59,55 @@ export default function Map(){
         return addresses.map((address)=> {
             const lat = address.latitude;
             const lng = address.longitude;
-            const title = address.courseName
             return ( 
                 <Marker
                 key={address.courseId}
                 coordinate={{latitude:lat, longitude:lng}}
                 onPress={(e)=> {
                     e.stopPropagation();
-                    handleMarkerPress(address)}}
+                    handleMarkerPress(address)
+                }}
                 >
                 </Marker>
         )});
     };
-    
-    const etsiRata = async (query:string) => {
-        if (query.length >=   3) {
-            const result: Address | undefined = addresses.find((address) =>
-                address.courseName.toLowerCase().includes(query.toLowerCase())
-            );
-            if (result) {
-                setSelected(result);
+
+    const checkSearch = (input:string, filter: (address:Address) => boolean) => {
+        const result: Address[] = addresses.filter((address) => filter(address));
+        let filterResult: boolean = false;
+        if (result.length > 0) {
+            if(result.length === 1) {
+                setSelected(result[0]);
                 setShowInfo(true);
                 mapRef.current?.animateToRegion({
-                    latitude: result.latitude,
-                    longitude: result.longitude,
+                    latitude: result[0].latitude,
+                    longitude: result[0].longitude,
                     latitudeDelta: 0.02,
                     longitudeDelta: 0.02,
                 });
+                filterResult = true;
+            } else {
+                setSearchResult({
+                    name: input,
+                  });
+                  filterResult = true;
             }
+        } 
+        return filterResult;
+    }
+    
+    const findAddress = async (searchInput:string) => {
+        if (searchInput.length >=   3) {
+            if (checkSearch(searchInput, (address) => address.courseName.toLowerCase().includes(searchInput.toLowerCase()))) {
+                return
+            } else if (checkSearch(searchInput, (address) => address.courseTown.toLowerCase().includes(searchInput.toLowerCase()))) {
+                return
+            } else {
+                alert('Osoitetta ei löytynyt')
+            }
+
         } else {
-            alert('Anna tarkempi osoite'); 
+            alert('Anna tarkempi osoite')
         }
     }
     const handleMarkerPress = (address: Address) => {
@@ -118,7 +138,7 @@ export default function Map(){
                     value={input}
                     onChangeText={(text)=>setInput(text)}
                     />
-                    <Button style={styles.mapButton} onPress={() => etsiRata(input)}>
+                    <Button style={styles.mapButton} onPress={() => findAddress(input)}>
                         Etsi...
                     </Button>
             </View>
@@ -138,6 +158,38 @@ export default function Map(){
                 </View>
             </View>
             )}
+            {searchResult.name !== '' && (
+                <View style={styles.searchResultContainer}>
+                    <Text style={styles.searchResultText}>Haulla löytyi useampi osoite:</Text>
+                    <ScrollView style={{width:'100%'}}>
+                    {addresses.filter((address) => 
+                        address.courseTown.toLowerCase().includes(searchResult.name.toLowerCase()) ||
+                        address.courseName.toLowerCase().includes(searchResult.name.toLowerCase())
+                    ).map((address) => (
+                        <View style={{width:'100%'}} key={address.courseId}>
+                        <Button 
+                        _pressed={{ opacity: 0.5 }}
+                        style={styles.searchResultButton}
+                        onPress={() => 
+                        {
+                            setSelected(address);
+                            setShowInfo(true);
+                            mapRef.current?.animateToRegion({
+                                latitude: address.latitude,
+                                longitude: address.longitude,
+                                latitudeDelta: 0.02,
+                                longitudeDelta: 0.02,
+                            })
+                            setSearchResult({
+                                name: '',
+                            });
+                        }}><Text>{address.courseName}</Text>
+                        </Button>
+                        <View style={{height:1}}></View>
+                        </View>
+                        
+            ))}</ScrollView>
+            </View>)}
         </View>
     );
 }
