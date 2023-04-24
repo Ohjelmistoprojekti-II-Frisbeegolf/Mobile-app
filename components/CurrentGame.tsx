@@ -17,70 +17,102 @@ interface Hole {
 
 interface Stroke {
     hole: Hole
-    gameId: number
-    courseId: number
     score: number
 }
 
+interface Game {
+    course: Course
+    strokes: Stroke[]
+    steps: number
+}
+
+
 export default function CurrentGame({ route, navigation }: any) {
 
-    const [repository, setRepository] = useState<Course>({
-        courseId: 1,
-        courseName: "",
-        holes: []
-    });
     const [strokes, setStrokes] = useState<Stroke[]>([]);
+    const [game, setGame] = useState<Game>();
     const [index, setIndex] = useState<number>(0);
-
-    useEffect(() => {
-        setStrokes(repository.holes.map(hole => { return ({ hole: hole, gameId: 4, courseId: route.params.courseId, score: 0 }) }))
-    }, [repository]);
+    /*
+        useEffect(() => {
+            setStrokes(game!.course.holes.map(hole => { return ({ hole: { holeId: hole.holeId, holeLength: hole.holeLength, holeNumber: hole.holeNumber, holePar: hole.holePar }, score: 0 }) }))
+        }, [game]);
+        */
 
     const handleStroke = (index: number, operator: string) => {
-        const data = [...strokes];
-        data[index].score = operator === "-" ? data[index].score - 1 : data[index].score + 1
-        setStrokes(data);
-        console.log(strokes[index])
+        const data = [...game!.strokes];
+        data[index].score = operator === "-" ? data[index].score - 1 : data[index].score + 1;
+        setGame({ ...game!, strokes: data });
+        console.log(game)
     }
 
     const fetchData = async () => {
         const token = await AsyncStorage.getItem('token')
-        console.log(`Bearer ${token}`)
-        const response = await fetch(`https://dev-discgolf.herokuapp.com/courses/${route.params.courseId}`, {
+        console.log(route.params.course.courseId)
+        const response = await fetch(`https://dev-discgolf.herokuapp.com/courses/${route.params.course.courseId}`, {
             headers: {
                 'Authorization': `Bearer ${token}`
             }
         });
         const data = await response.json();
-        setRepository(data);
+        const strokesss: Stroke[] = data.holes.map((hole: Hole) => { return { hole: hole, score: 0 } })
+        setGame({ course: data, strokes: strokesss, steps: 0 });
     }
+    console.log(game?.strokes[0].hole)
 
     useEffect(() => {
         fetchData();
     }, [])
 
-      
+    const handleSubmit = async () => {
+        const token = await AsyncStorage.getItem('token')
+        const config = {
+            method: 'POST',
+            body: JSON.stringify(game),
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json'
+            }
+        };
+        const response = await fetch(`https://discgolf-security.herokuapp.com/games`, config);
+        console.log(response)
+
+    }
+
+
 
     return (
-        strokes.length < 1 ?
+        !game ?
             <View></View>
             :
             <View style={styles.view}>
-                <Text style={styles.header}>Väylä: {strokes[index].hole.holeNumber}</Text>
-                <Text style={styles.header}>Par: {strokes[index].hole.holePar}</Text>
-                <Text style={styles.header}>Pituus: {strokes[index].hole.holeLength}m</Text>
+                <View style={styles.throwButtonView}>
+                    <Button
+                        _pressed={{ opacity: 0.5 }}
+                        isDisabled={index === 0}
+                        style={styles.nextPreviousButton}
+                        onPress={() => setIndex(index - 1)} >Edellinen väylä
+                    </Button>
+                    <Button
+                        _pressed={{ opacity: 0.5 }}
+                        isDisabled={index === game!.strokes.length - 1}
+                        style={styles.nextPreviousButton}
+                        onPress={() => setIndex(index + 1)} >Seuraava väylä</Button>
+                </View>
+                <Text style={styles.header}>Väylä: {game!.strokes[index].hole.holeNumber}</Text>
+                <Text style={styles.header}>Par: {game!.strokes[index].hole.holePar}</Text>
+                <Text style={styles.header}>Pituus: {game!.strokes[index].hole.holeLength}m</Text>
                 <Text style={styles.header}> Heitot: </Text>
                 <View style={{ marginBottom: '100%' }}>
                     <View style={styles.throwCounterView}>
                         <Button
                             _pressed={{ opacity: 0.5 }}
                             style={styles.throwButton}
-                            isDisabled={strokes[index].score === 0}
+                            isDisabled={game!.strokes[index].score === 0}
                             onPress={() => handleStroke(index, '-')}
                         >
                             -
                         </Button>
-                        <Text style={styles.throwCounterText}>{strokes[index].score}</Text>
+                        <Text style={styles.throwCounterText}>{game!.strokes[index].score}</Text>
                         <Button
                             _pressed={{ opacity: 0.5 }}
                             style={styles.throwButton}
@@ -88,21 +120,16 @@ export default function CurrentGame({ route, navigation }: any) {
                         >
                             +
                         </Button>
+
                     </View>
+                    <View style={styles.throwCounterView}>
+                        {index === game!.strokes.length - 1 && <Button
+                            onPress={() => handleSubmit()}
+                            style={styles.throwButton} >Lopeta peli</Button>}
+                    </View>
+
                 </View>
-                    <View style={styles.throwButtonView}>
-                        <Button
-                            _pressed={{ opacity: 0.5 }}
-                            isDisabled={index === 0}
-                            style={styles.nextPreviousButton}
-                            onPress={() => setIndex(index - 1)} >Edellinen väylä
-                        </Button>
-                        <Button
-                            _pressed={{ opacity: 0.5 }}
-                            isDisabled={index === strokes.length - 1}
-                            style={styles.nextPreviousButton}
-                            onPress={() => setIndex(index + 1)} >Seuraava väylä</Button>
-                    </View>
+
             </View>
     );
 }
