@@ -50,6 +50,7 @@ export default function MyDrawer(props: any) {
         headerTintColor: 'white',
         headerTitleStyle: {
           fontWeight: 'bold',
+          fontSize: 24,
         },
         drawerStyle: {
           backgroundColor: 'green',

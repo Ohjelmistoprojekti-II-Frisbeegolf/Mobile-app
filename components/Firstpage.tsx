@@ -1,7 +1,7 @@
 import React, {useState,useEffect} from 'react'
-import { View,Avatar,Text, Button } from 'native-base';
+import { View,Avatar,Text, Button, AlertDialog } from 'native-base';
 import { styles } from './StyleSheet';
-import { ActivityIndicator } from 'react-native';
+import { ActivityIndicator, Alert } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { userurl } from './Url';
 
@@ -14,6 +14,7 @@ interface User {
     totalSteps: number,
     totalTimePlayed: number,
 }
+
 export default function Firstpage({navigation}: {navigation: any}){
 
     const [repository,setRepository] = useState<User>({
@@ -44,6 +45,16 @@ export default function Firstpage({navigation}: {navigation: any}){
         fetchData();
     }, [])
 
+    const [isOpen, setIsOpen] = React.useState(false);
+
+    const onClose = () => setIsOpen(false);
+
+    const cancelRef = React.useRef(null);
+
+    const [isOpenSecond, setIsOpenSecond] = React.useState(false);
+
+    const onCloseSecond = () => setIsOpenSecond(false);
+
     return (
         <View>
             <View style={styles.view}>
@@ -65,10 +76,21 @@ export default function Firstpage({navigation}: {navigation: any}){
                     <View style={styles.statsHeaderUsernameView}>
                         <Text style={styles.statsHeaderUsername}>{repository.username}</Text>
                     </View>
-                    <View style={styles.singleStatView}>
+                    <Button _pressed={{ opacity: 0.5 }} style={styles.singleStatButton} onPress={() => setIsOpenSecond(!isOpenSecond)}>
                         <Text style={styles.statsHeader}>Heitot: </Text>
                         <Text style={styles.statsText}>{repository.totalThrowsThrown}</Text>
-                    </View>
+                    </Button>
+                    <AlertDialog leastDestructiveRef={cancelRef} isOpen={isOpenSecond} onClose={onCloseSecond}>
+                        <AlertDialog.Content>
+                            <AlertDialog.CloseButton />
+                            <AlertDialog.Header>Heitot</AlertDialog.Header>
+                            <AlertDialog.Body>
+                                Kokonaisheitot: {repository.totalThrowsThrown}
+                                Par: 
+                                Birdie:
+                            </AlertDialog.Body>
+                        </AlertDialog.Content>
+                    </AlertDialog>
                     <View style={styles.singleStatView}>
                         <Text style={styles.statsHeader}>Askeleet: </Text>
                         <Text style={styles.statsText}>{repository.totalSteps}</Text>
@@ -77,6 +99,19 @@ export default function Firstpage({navigation}: {navigation: any}){
                         <Text style={styles.statsHeader}>Peliaika: </Text>
                         <Text style={styles.statsText}>{repository.totalTimePlayed}</Text>
                     </View>
+
+                    <Button _pressed={{ opacity: 0.5 }} style={styles.button} onPress={() => setIsOpen(!isOpen)}>
+                        Edelliset pelit
+                    </Button>
+                    <AlertDialog leastDestructiveRef={cancelRef} isOpen={isOpen} onClose={onClose}>
+                        <AlertDialog.Content>
+                            <AlertDialog.CloseButton />
+                            <AlertDialog.Header>Edelliset pelit</AlertDialog.Header> 
+                            <AlertDialog.Body>
+                                
+                            </AlertDialog.Body>
+                        </AlertDialog.Content>
+                    </AlertDialog>
                 </View>
                 )}
             </View>

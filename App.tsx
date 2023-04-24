@@ -31,6 +31,10 @@ export default function App() {
                 options={{headerStyle:{
                 backgroundColor: 'green',
               },headerTintColor: 'white',
+              headerTitleStyle: {
+                fontSize: 24,
+                fontWeight: 'bold',
+              }
           }}/>
               
             </>
@@ -40,6 +44,10 @@ export default function App() {
               options={{headerStyle:{
               backgroundColor: 'green',
               },headerTintColor: 'white',
+              headerTitleStyle: {
+                fontSize: 24,
+                fontWeight: 'bold',
+              }
             }}>
               {(props) => <LoginScreen {...props} setLoggedIn={setLoggedIn} />}
             </Stack.Screen>
@@ -49,6 +57,10 @@ export default function App() {
                 options={{headerStyle:{
                 backgroundColor: 'green',
               },headerTintColor: 'white',
+              headerTitleStyle: {
+                fontSize: 24,
+                fontWeight: 'bold',
+              }, headerBackTitle: 'Takaisin'
             }}/>
           </>
           )}

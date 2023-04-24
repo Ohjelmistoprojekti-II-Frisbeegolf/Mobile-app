@@ -317,9 +317,24 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     marginBottom: 5,
     paddingTop: 5,
-    backgroundColor: '#e6e6e6',
+    backgroundColor: 'white',
     width: 350,
     heigth: 100,
+    justifyContent: 'flex-start'
+  },
+
+  singleStatButton: {
+    marginTop: 5,
+    borderWidth: 2,
+    borderColor: '#336600',
+    borderRadius: 10,
+    marginBottom: 5,
+    paddingTop: 5,
+    backgroundColor: 'white',
+    width: 350,
+    heigth: 100,
+    justifyContent: 'flex-start',
+    paddingLeft: -5
   },
 
   statsHeaderUsernameView: {
@@ -334,13 +349,13 @@ const styles = StyleSheet.create({
   statsHeader: {
     fontSize: 22,
     paddingTop: 3,
-    marginLeft: 5,
+    marginLeft: 5
   },
 
   statsText: {
     fontSize: 20,
     paddingBottom: 3,
-    marginLeft: 10,
+    marginLeft: 10
   
   },
 
