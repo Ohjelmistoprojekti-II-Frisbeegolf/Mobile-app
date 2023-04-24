@@ -300,6 +300,50 @@ const styles = StyleSheet.create({
     padding:5,
   },
 
+  statsView: {
+    paddingTop: 20,
+    marginTop: 10,
+    width: '100%',
+    heigth: '100%',
+    alignItems: 'center',
+    justifyContent: 'center',
+
+  },
+
+  singleStatView: {
+    marginTop: 2,
+    borderWidth: 2,
+    borderColor: '#336600',
+    borderRadius: 10,
+    marginBottom: 5,
+    paddingTop: 5,
+    backgroundColor: '#e6e6e6',
+    width: 350,
+    heigth: 100,
+  },
+
+  statsHeaderUsernameView: {
+    alignItems: 'center',
+  },
+
+  statsHeaderUsername: {
+    paddingTop: 5,
+    fontSize: 24,
+  },
+  
+  statsHeader: {
+    fontSize: 22,
+    paddingTop: 3,
+    marginLeft: 5,
+  },
+
+  statsText: {
+    fontSize: 20,
+    paddingBottom: 3,
+    marginLeft: 10,
+  
+  },
+
   
 });
 

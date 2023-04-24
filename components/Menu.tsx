@@ -78,14 +78,6 @@ export default function MyDrawer(props: any) {
             <Feather name='home' size={size} color='black' />
           ),
         }} />
-      <Drawer.Screen
-        name='Profiili'
-        component={Profile}
-        options={{
-          drawerIcon: ({ color, size }) => (
-            <Feather name='user' size={size} color='black' />
-          ),
-        }} />
       <Drawer.Screen name='Peli'
         component={ChooseCourse}
         options={{
