@@ -28,57 +28,49 @@ interface Game {
 
 
 export default function CurrentGame({ route, navigation }: any) {
-
-    const [strokes, setStrokes] = useState<Stroke[]>([]);
     const [game, setGame] = useState<Game>();
     const [index, setIndex] = useState<number>(0);
-    /*
-        useEffect(() => {
-            setStrokes(game!.course.holes.map(hole => { return ({ hole: { holeId: hole.holeId, holeLength: hole.holeLength, holeNumber: hole.holeNumber, holePar: hole.holePar }, score: 0 }) }))
-        }, [game]);
-        */
 
     const handleStroke = (index: number, operator: string) => {
-        const data = [...game!.strokes];
-        data[index].score = operator === "-" ? data[index].score - 1 : data[index].score + 1;
-        setGame({ ...game!, strokes: data });
-        console.log(game)
+        const strokes = [...game!.strokes];
+        strokes[index].score = operator === "-" ? strokes[index].score - 1 : strokes[index].score + 1;
+        setGame({ ...game!, strokes: strokes });
     }
 
     const fetchData = async () => {
-        const token = await AsyncStorage.getItem('token')
-        console.log(route.params.course.courseId)
+        const token = await AsyncStorage.getItem('token');
         const response = await fetch(`https://dev-discgolf.herokuapp.com/courses/${route.params.course.courseId}`, {
             headers: {
                 'Authorization': `Bearer ${token}`
             }
         });
-        const data = await response.json();
-        const strokesss: Stroke[] = data.holes.map((hole: Hole) => { return { hole: hole, score: 0 } })
-        setGame({ course: data, strokes: strokesss, steps: 0 });
+        const data: Course = await response.json();
+        const initializedStrokes: Stroke[] = data.holes.map((hole: Hole) => { return { hole: hole, score: 0 } });
+        setGame({ course: data, strokes: initializedStrokes, steps: 0 });
     }
-    console.log(game?.strokes[0].hole)
 
     useEffect(() => {
         fetchData();
-    }, [])
+    }, []);
 
     const handleSubmit = async () => {
-        const token = await AsyncStorage.getItem('token')
-        const config = {
-            method: 'POST',
-            body: JSON.stringify(game),
-            headers: {
-                'Authorization': `Bearer ${token}`,
-                'Content-Type': 'application/json'
-            }
-        };
-        const response = await fetch(`https://discgolf-security.herokuapp.com/games`, config);
-        console.log(response)
+        try {
+            const token = await AsyncStorage.getItem('token')
+            const config = {
+                method: 'POST',
+                body: JSON.stringify(game),
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json'
+                }
+            };
+            const response = await fetch(`https://discgolf-security.herokuapp.com/games`, config);
+            // TODO
+        } catch (error) {
+            console.log(error);
+        }
 
     }
-
-
 
     return (
         !game ?
@@ -98,9 +90,9 @@ export default function CurrentGame({ route, navigation }: any) {
                         style={styles.nextPreviousButton}
                         onPress={() => setIndex(index + 1)} >Seuraava väylä</Button>
                 </View>
-                <Text style={styles.header}>Väylä: {game!.strokes[index].hole.holeNumber}</Text>
-                <Text style={styles.header}>Par: {game!.strokes[index].hole.holePar}</Text>
-                <Text style={styles.header}>Pituus: {game!.strokes[index].hole.holeLength}m</Text>
+                <Text style={styles.header}>Väylä: {game.strokes[index].hole.holeNumber}</Text>
+                <Text style={styles.header}>Par: {game.strokes[index].hole.holePar}</Text>
+                <Text style={styles.header}>Pituus: {game.strokes[index].hole.holeLength}m</Text>
                 <Text style={styles.header}> Heitot: </Text>
                 <View style={{ marginBottom: '100%' }}>
                     <View style={styles.throwCounterView}>
@@ -112,7 +104,7 @@ export default function CurrentGame({ route, navigation }: any) {
                         >
                             -
                         </Button>
-                        <Text style={styles.throwCounterText}>{game!.strokes[index].score}</Text>
+                        <Text style={styles.throwCounterText}>{game.strokes[index].score}</Text>
                         <Button
                             _pressed={{ opacity: 0.5 }}
                             style={styles.throwButton}
@@ -123,7 +115,7 @@ export default function CurrentGame({ route, navigation }: any) {
 
                     </View>
                     <View style={styles.throwCounterView}>
-                        {index === game!.strokes.length - 1 && <Button
+                        {index === game.strokes.length - 1 && <Button
                             onPress={() => handleSubmit()}
                             style={styles.throwButton} >Lopeta peli</Button>}
                     </View>
