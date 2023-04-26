@@ -1,3 +1,4 @@
+import { Flex } from 'native-base';
 import { StyleSheet } from 'react-native';
 import { color } from 'react-native-reanimated';
 
@@ -31,6 +32,8 @@ const styles = StyleSheet.create({
 
   view: {
     alignItems: 'center',
+    height: '100%',
+    width: '100%'
   },
 
   throwCounterView: {
@@ -303,11 +306,8 @@ const styles = StyleSheet.create({
   statsView: {
     paddingTop: 20,
     marginTop: 10,
-    width: '100%',
-    heigth: '100%',
-    alignItems: 'center',
+    alignContent: 'space-between',
     justifyContent: 'center',
-
   },
 
   singleStatView: {
@@ -318,23 +318,8 @@ const styles = StyleSheet.create({
     marginBottom: 5,
     paddingTop: 5,
     backgroundColor: 'white',
-    width: 350,
-    heigth: 100,
-    justifyContent: 'flex-start'
-  },
-
-  singleStatButton: {
-    marginTop: 5,
-    borderWidth: 2,
-    borderColor: '#336600',
-    borderRadius: 10,
-    marginBottom: 5,
-    paddingTop: 5,
-    backgroundColor: 'white',
-    width: 350,
-    heigth: 100,
-    justifyContent: 'flex-start',
-    paddingLeft: -5
+    width: '45%',
+    heigth: '40%',
   },
 
   statsHeaderUsernameView: {
@@ -347,15 +332,16 @@ const styles = StyleSheet.create({
   },
   
   statsHeader: {
-    fontSize: 22,
+    fontSize: 20,
     paddingTop: 3,
-    marginLeft: 5
+    marginLeft: '5%',
+    fontWeight: 'bold'
   },
 
   statsText: {
     fontSize: 20,
     paddingBottom: 3,
-    marginLeft: 10
+    marginLeft: '10%'
   
   },
 

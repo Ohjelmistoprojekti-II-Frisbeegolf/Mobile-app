@@ -1,9 +1,10 @@
 import React, {useState,useEffect} from 'react'
-import { View,Avatar,Text, Button, AlertDialog } from 'native-base';
+import { View,Avatar,Text, Button, AlertDialog, VStack, HStack, Divider, ZStack } from 'native-base';
 import { styles } from './StyleSheet';
-import { ActivityIndicator, Alert } from 'react-native';
+import { ActivityIndicator, Alert, TouchableOpacity } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { userurl } from './Url';
+
 
 interface User {
     userId: number,
@@ -13,6 +14,19 @@ interface User {
     totalThrowsThrown: number,
     totalSteps: number,
     totalTimePlayed: number,
+    gamesPlayed: number,
+    results: Result
+}
+
+interface Result {
+    ACE: number,
+    PAR: number,
+    BIRDIE: number,
+    EAGLE: number,
+    ALBATROSS: number,
+    BOGEY: number,
+    DOUBLE_BOGEY: number,
+    TRIPLE_BOGEY: number,
 }
 
 export default function Firstpage({navigation}: {navigation: any}){
@@ -25,6 +39,8 @@ export default function Firstpage({navigation}: {navigation: any}){
         totalThrowsThrown: 0,
         totalSteps: 0,
         totalTimePlayed: 0,
+        gamesPlayed: 0,
+
     });
     const [loading, setLoading] = useState(true);
 
@@ -76,42 +92,106 @@ export default function Firstpage({navigation}: {navigation: any}){
                     <View style={styles.statsHeaderUsernameView}>
                         <Text style={styles.statsHeaderUsername}>{repository.username}</Text>
                     </View>
-                    <Button _pressed={{ opacity: 0.5 }} style={styles.singleStatButton} onPress={() => setIsOpenSecond(!isOpenSecond)}>
-                        <Text style={styles.statsHeader}>Heitot: </Text>
-                        <Text style={styles.statsText}>{repository.totalThrowsThrown}</Text>
-                    </Button>
+                <HStack space={2} justifyContent='center' >
+                    <TouchableOpacity  style={styles.singleStatView} onPress={() => setIsOpenSecond(!isOpenSecond)}>
+                        <Text style={styles.statsHeader}>
+                            Heitot: 
+                        </Text>
+                        <Text style={styles.statsText}>
+                            {repository.totalThrowsThrown}
+                        </Text>
+                    </TouchableOpacity>
                     <AlertDialog leastDestructiveRef={cancelRef} isOpen={isOpenSecond} onClose={onCloseSecond}>
                         <AlertDialog.Content>
                             <AlertDialog.CloseButton />
                             <AlertDialog.Header>Heitot</AlertDialog.Header>
                             <AlertDialog.Body>
-                                Kokonaisheitot: {repository.totalThrowsThrown}
-                                Par: 
-                                Birdie:
+                                <VStack space={3} divider={<Divider />}>
+                                    <HStack justifyContent="space-between">
+                                        <Text>
+                                            Kokonaisheitot: {repository.totalThrowsThrown}
+                                        </Text>    
+                                    </HStack>
+                                    <HStack justifyContent="space-between">
+                                        <Text>
+                                            Hole-In-One: {repository.results.ACE}
+                                        </Text>
+                                    </HStack>
+                                    <HStack justifyContent="space-between">
+                                        <Text>
+                                            Albatrossi: {repository.results.ALBATROSS}
+                                        </Text>
+                                    </HStack>
+                                    <HStack justifyContent="space-between">
+                                        <Text>
+                                            Eagle: {repository.results.EAGLE}
+                                        </Text>   
+                                    </HStack>
+                                    <HStack justifyContent="space-between">
+                                        <Text>
+                                            Birdie: {repository.results.BIRDIE}
+                                        </Text>
+                                    </HStack>
+                                    <HStack justifyContent="space-between">
+                                        <Text>
+                                            Par: {repository.results.PAR}
+                                        </Text>
+                                    </HStack>
+                                    <HStack justifyContent="space-between">
+                                        <Text>
+                                            Bogey: {repository.results.BOGEY}
+                                        </Text>
+                                    </HStack>
+                                    <HStack justifyContent="space-between">
+                                        <Text>
+                                            Tupla Bogey: {repository.results.DOUBLE_BOGEY}
+                                        </Text>
+                                    </HStack>
+                                    <HStack justifyContent="space-between">
+                                        <Text>
+                                            Tripla Bogey: {repository.results.TRIPLE_BOGEY}
+                                        </Text>
+                                    </HStack>
+                                </VStack>
                             </AlertDialog.Body>
                         </AlertDialog.Content>
                     </AlertDialog>
-                    <View style={styles.singleStatView}>
-                        <Text style={styles.statsHeader}>Askeleet: </Text>
-                        <Text style={styles.statsText}>{repository.totalSteps}</Text>
-                    </View>
-                    <View style={styles.singleStatView}>
-                        <Text style={styles.statsHeader}>Peliaika: </Text>
-                        <Text style={styles.statsText}>{repository.totalTimePlayed}</Text>
-                    </View>
-
-                    <Button _pressed={{ opacity: 0.5 }} style={styles.button} onPress={() => setIsOpen(!isOpen)}>
-                        Edelliset pelit
-                    </Button>
+                    <TouchableOpacity style={styles.singleStatView} onPress={() => setIsOpen(!isOpen)}>
+                        <Text style={styles.statsHeader}>
+                            Pelatut pelit:
+                        </Text>
+                        <Text style={styles.statsText}>
+                            {repository.gamesPlayed}
+                        </Text>
+                    </TouchableOpacity>
                     <AlertDialog leastDestructiveRef={cancelRef} isOpen={isOpen} onClose={onClose}>
                         <AlertDialog.Content>
                             <AlertDialog.CloseButton />
-                            <AlertDialog.Header>Edelliset pelit</AlertDialog.Header> 
-                            <AlertDialog.Body>
-                                
-                            </AlertDialog.Body>
+                                <AlertDialog.Header>Pelatut pelit</AlertDialog.Header> 
+                                <AlertDialog.Body>
+                                        Pelatut pelit
+                                </AlertDialog.Body>
                         </AlertDialog.Content>
                     </AlertDialog>
+                </HStack>
+                <HStack space={2} justifyContent='center' >
+                    <View style={styles.singleStatView}>
+                        <Text style={styles.statsHeader}>
+                            Askeleet: 
+                        </Text>
+                        <Text style={styles.statsText}>
+                            {repository.totalSteps}
+                        </Text>
+                    </View>
+                    <View style={styles.singleStatView}>
+                        <Text style={styles.statsHeader}>
+                            Peliaika: 
+                        </Text>
+                        <Text style={styles.statsText}>
+                            {repository.totalTimePlayed}
+                        </Text>
+                    </View>
+                </HStack>
                 </View>
                 )}
             </View>
