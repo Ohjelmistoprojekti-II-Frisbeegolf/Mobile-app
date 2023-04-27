@@ -1,16 +1,16 @@
-import React, {useState,useEffect} from 'react'
-import { View,Avatar,Text, Button, AlertDialog, VStack, HStack, Divider, ZStack } from 'native-base';
+import React, { useState, useEffect } from 'react'
+import { View, Avatar, Text, Button, AlertDialog, VStack, HStack, Divider, ZStack } from 'native-base';
 import { styles } from './StyleSheet';
 import { ActivityIndicator, Alert, TouchableOpacity } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { userUrl } from './Url';
+import { MAIN_API_URL, userUrl } from './Url';
 
 
 interface User {
     userId: number,
-    username:string,
-    password:string,
-    role:string,
+    username: string,
+    password: string,
+    role: string,
     totalThrowsThrown: number,
     totalSteps: number,
     totalTimePlayed: number,
@@ -29,13 +29,13 @@ interface Result {
     TRIPLE_BOGEY: number,
 }
 
-export default function Firstpage({navigation}: {navigation: any}){
+export default function Firstpage({ navigation }: { navigation: any }) {
 
-    const [repository,setRepository] = useState<User>({
+    const [repository, setRepository] = useState<User>({
         userId: 1,
-        username:"",
-        password:"",
-        role:"",
+        username: "",
+        password: "",
+        role: "",
         totalThrowsThrown: 0,
         totalSteps: 0,
         totalTimePlayed: 0,
@@ -46,7 +46,7 @@ export default function Firstpage({navigation}: {navigation: any}){
     const fetchData = async () => {
         const token = await AsyncStorage.getItem('token')
         console.log(`Bearer ${token}`)
-        const response = await fetch(userUrl, {
+        const response = await fetch(MAIN_API_URL + 'users/current', {
             headers: {
                 'Authorization': `Bearer ${token}`
             },
@@ -76,123 +76,123 @@ export default function Firstpage({navigation}: {navigation: any}){
                 <Button
                     _pressed={{ opacity: 0.5 }}
                     style={styles.button}
-                    onPress= { () => navigation.navigate('Peli')}>
-                        <Text style={{fontSize:22, color:'white'}}>Aloita peli</Text>
+                    onPress={() => navigation.navigate('Peli')}>
+                    <Text style={{ fontSize: 22, color: 'white' }}>Aloita peli</Text>
                 </Button>
                 <Avatar style={styles.avatar} source={{
-                        uri: "https://images.unsplash.com/photo-1603415526960-f7e0328c63b1?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80"
-                    }}/>
+                    uri: "https://images.unsplash.com/photo-1603415526960-f7e0328c63b1?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80"
+                }} />
                 {loading ?
-                <ActivityIndicator 
-                size="small"
-                animating={loading}/>
-                :    (
-                <View style={styles.statsView}>
-                    <View style={styles.statsHeaderUsernameView}>
-                        <Text style={styles.statsHeaderUsername}>{repository.username}</Text>
-                    </View>
-                <HStack space={2} justifyContent='center' >
-                    <TouchableOpacity  style={styles.singleStatView} onPress={() => setIsOpenSecond(!isOpenSecond)}>
-                        <Text style={styles.statsHeader}>
-                            Heitot: 
-                        </Text>
-                        <Text style={styles.statsText}>
-                            {repository.totalThrowsThrown}
-                        </Text>
-                    </TouchableOpacity>
-                    <AlertDialog leastDestructiveRef={cancelRef} isOpen={isOpenSecond} onClose={onCloseSecond}>
-                        <AlertDialog.Content>
-                            <AlertDialog.CloseButton />
-                            <AlertDialog.Header>Heitot</AlertDialog.Header>
-                            <AlertDialog.Body>
-                                <VStack space={3} divider={<Divider />}>
-                                    <HStack justifyContent="space-between">
-                                        <Text>
-                                            Kokonaisheitot: {repository.totalThrowsThrown}
-                                        </Text>    
-                                    </HStack>
-                                    <HStack justifyContent="space-between">
-                                        <Text>
-                                            Hole-In-One: {repository.results.ACE}
-                                        </Text>
-                                    </HStack>
-                                    <HStack justifyContent="space-between">
-                                        <Text>
-                                            Albatrossi: {repository.results.ALBATROSS}
-                                        </Text>
-                                    </HStack>
-                                    <HStack justifyContent="space-between">
-                                        <Text>
-                                            Eagle: {repository.results.EAGLE}
-                                        </Text>   
-                                    </HStack>
-                                    <HStack justifyContent="space-between">
-                                        <Text>
-                                            Birdie: {repository.results.BIRDIE}
-                                        </Text>
-                                    </HStack>
-                                    <HStack justifyContent="space-between">
-                                        <Text>
-                                            Par: {repository.results.PAR}
-                                        </Text>
-                                    </HStack>
-                                    <HStack justifyContent="space-between">
-                                        <Text>
-                                            Bogey: {repository.results.BOGEY}
-                                        </Text>
-                                    </HStack>
-                                    <HStack justifyContent="space-between">
-                                        <Text>
-                                            Tupla Bogey: {repository.results.DOUBLE_BOGEY}
-                                        </Text>
-                                    </HStack>
-                                    <HStack justifyContent="space-between">
-                                        <Text>
-                                            Tripla Bogey: {repository.results.TRIPLE_BOGEY}
-                                        </Text>
-                                    </HStack>
-                                </VStack>
-                            </AlertDialog.Body>
-                        </AlertDialog.Content>
-                    </AlertDialog>
-                    <TouchableOpacity style={styles.singleStatView} onPress={() => setIsOpen(!isOpen)}>
-                        <Text style={styles.statsHeader}>
-                            Pelatut pelit:
-                        </Text>
-                        <Text style={styles.statsText}>
-                            {repository.gamesPlayed}
-                        </Text>
-                    </TouchableOpacity>
-                    <AlertDialog leastDestructiveRef={cancelRef} isOpen={isOpen} onClose={onClose}>
-                        <AlertDialog.Content>
-                            <AlertDialog.CloseButton />
-                                <AlertDialog.Header>Pelatut pelit</AlertDialog.Header> 
-                                <AlertDialog.Body>
-                                        Pelatut pelit
-                                </AlertDialog.Body>
-                        </AlertDialog.Content>
-                    </AlertDialog>
-                </HStack>
-                <HStack space={2} justifyContent='center' >
-                    <View style={styles.singleStatView}>
-                        <Text style={styles.statsHeader}>
-                            Askeleet: 
-                        </Text>
-                        <Text style={styles.statsText}>
-                            {repository.totalSteps}
-                        </Text>
-                    </View>
-                    <View style={styles.singleStatView}>
-                        <Text style={styles.statsHeader}>
-                            Peliaika: 
-                        </Text>
-                        <Text style={styles.statsText}>
-                            {repository.totalTimePlayed}
-                        </Text>
-                    </View>
-                </HStack>
-                </View>
-                )}
+                    <ActivityIndicator
+                        size="small"
+                        animating={loading} />
+                    : (
+                        <View style={styles.statsView}>
+                            <View style={styles.statsHeaderUsernameView}>
+                                <Text style={styles.statsHeaderUsername}>{repository.username}</Text>
+                            </View>
+                            <HStack space={2} justifyContent='center' >
+                                <TouchableOpacity style={styles.singleStatView} onPress={() => setIsOpenSecond(!isOpenSecond)}>
+                                    <Text style={styles.statsHeader}>
+                                        Heitot:
+                                    </Text>
+                                    <Text style={styles.statsText}>
+                                        {repository.totalThrowsThrown}
+                                    </Text>
+                                </TouchableOpacity>
+                                <AlertDialog leastDestructiveRef={cancelRef} isOpen={isOpenSecond} onClose={onCloseSecond}>
+                                    <AlertDialog.Content>
+                                        <AlertDialog.CloseButton />
+                                        <AlertDialog.Header>Heitot</AlertDialog.Header>
+                                        <AlertDialog.Body>
+                                            <VStack space={3} divider={<Divider />}>
+                                                <HStack justifyContent="space-between">
+                                                    <Text>
+                                                        Kokonaisheitot: {repository.totalThrowsThrown}
+                                                    </Text>
+                                                </HStack>
+                                                <HStack justifyContent="space-between">
+                                                    <Text>
+                                                        Hole-In-One: {repository.results.ACE}
+                                                    </Text>
+                                                </HStack>
+                                                <HStack justifyContent="space-between">
+                                                    <Text>
+                                                        Albatrossi: {repository.results.ALBATROSS}
+                                                    </Text>
+                                                </HStack>
+                                                <HStack justifyContent="space-between">
+                                                    <Text>
+                                                        Eagle: {repository.results.EAGLE}
+                                                    </Text>
+                                                </HStack>
+                                                <HStack justifyContent="space-between">
+                                                    <Text>
+                                                        Birdie: {repository.results.BIRDIE}
+                                                    </Text>
+                                                </HStack>
+                                                <HStack justifyContent="space-between">
+                                                    <Text>
+                                                        Par: {repository.results.PAR}
+                                                    </Text>
+                                                </HStack>
+                                                <HStack justifyContent="space-between">
+                                                    <Text>
+                                                        Bogey: {repository.results.BOGEY}
+                                                    </Text>
+                                                </HStack>
+                                                <HStack justifyContent="space-between">
+                                                    <Text>
+                                                        Tupla Bogey: {repository.results.DOUBLE_BOGEY}
+                                                    </Text>
+                                                </HStack>
+                                                <HStack justifyContent="space-between">
+                                                    <Text>
+                                                        Tripla Bogey: {repository.results.TRIPLE_BOGEY}
+                                                    </Text>
+                                                </HStack>
+                                            </VStack>
+                                        </AlertDialog.Body>
+                                    </AlertDialog.Content>
+                                </AlertDialog>
+                                <TouchableOpacity style={styles.singleStatView} onPress={() => setIsOpen(!isOpen)}>
+                                    <Text style={styles.statsHeader}>
+                                        Pelatut pelit:
+                                    </Text>
+                                    <Text style={styles.statsText}>
+                                        {repository.gamesPlayed}
+                                    </Text>
+                                </TouchableOpacity>
+                                <AlertDialog leastDestructiveRef={cancelRef} isOpen={isOpen} onClose={onClose}>
+                                    <AlertDialog.Content>
+                                        <AlertDialog.CloseButton />
+                                        <AlertDialog.Header>Pelatut pelit</AlertDialog.Header>
+                                        <AlertDialog.Body>
+                                            Pelatut pelit
+                                        </AlertDialog.Body>
+                                    </AlertDialog.Content>
+                                </AlertDialog>
+                            </HStack>
+                            <HStack space={2} justifyContent='center' >
+                                <View style={styles.singleStatView}>
+                                    <Text style={styles.statsHeader}>
+                                        Askeleet:
+                                    </Text>
+                                    <Text style={styles.statsText}>
+                                        {repository.totalSteps}
+                                    </Text>
+                                </View>
+                                <View style={styles.singleStatView}>
+                                    <Text style={styles.statsHeader}>
+                                        Peliaika:
+                                    </Text>
+                                    <Text style={styles.statsText}>
+                                        {repository.totalTimePlayed}
+                                    </Text>
+                                </View>
+                            </HStack>
+                        </View>
+                    )}
             </View>
         </View>
     );

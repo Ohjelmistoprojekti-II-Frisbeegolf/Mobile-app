@@ -3,7 +3,7 @@ import { Text, View, Button, Image } from 'native-base';
 import React from 'react';
 import { styles } from './StyleSheet'
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { userUrl } from "./Url";
+import { MAIN_API_URL, userUrl } from "./Url";
 
 interface User {
   userId: number,
@@ -31,7 +31,7 @@ export default function Settings(props: any) {
         return;
       }
 
-      const response = await fetch(userUrl, {
+      const response = await fetch(MAIN_API_URL + 'users/current', {
         method: 'GET',
         headers: {
           Authorization: `Bearer ${token}`,
@@ -46,7 +46,7 @@ export default function Settings(props: any) {
       const currentUser: User = await response.json();
       console.log(currentUser);
 
-      const deleteUrl = `https://dev-discgolf.herokuapp.com/users/${currentUser.userId}`;
+      const deleteUrl = `${MAIN_API_URL}users/${currentUser.userId}`;
       const deleteResponse = await fetch(deleteUrl, {
         method: 'DELETE',
         headers: {
