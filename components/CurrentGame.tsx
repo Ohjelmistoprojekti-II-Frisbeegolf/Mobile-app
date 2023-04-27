@@ -65,11 +65,11 @@ export default function CurrentGame({ route, navigation }: any) {
                 }
             };
             const response = await fetch(`https://discgolf-security.herokuapp.com/games`, config);
+            navigation.navigate('Profiili');
             // TODO
         } catch (error) {
             console.log(error);
         }
-
     }
 
     return (
