@@ -1,5 +1,5 @@
 import MyDrawer from "./Menu";
-import { Text, View, Button, Image } from 'native-base';
+import { Text, View, Button, Popover } from 'native-base';
 import React from 'react';
 import { styles } from './StyleSheet'
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -70,6 +70,7 @@ export default function Settings(props: any) {
     <View style={styles.view}>
       <Button _pressed={{ opacity: 0.5 }} style={styles.button}>Nollaa tilastot</Button>
       <Button _pressed={{ opacity: 0.5 }} style={styles.button}>Puhelimen asetukset</Button>
+  
       <Button _pressed={{ opacity: 0.5 }} style={styles.button} onPress={poistaTunnus}>Poista tunnus</Button>
       <Button _pressed={{ opacity: 0.5 }} style={styles.button} onPress={kirjauduUlos}>Kirjaudu ulos</Button>
     </View>
