@@ -2,6 +2,12 @@ import { Text, View, Button } from 'native-base';
 import React, { useState, useEffect } from 'react';
 import { styles } from './StyleSheet';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import dayjs from 'dayjs';
+import utc from "dayjs/plugin/utc";
+import ConfirmAlert from './ConfirmAlert';
+import { set } from 'react-native-reanimated';
+dayjs.extend(utc);
+
 interface Course {
     courseId: number,
     courseName: string,
@@ -24,12 +30,14 @@ interface Game {
     course: Course
     strokes: Stroke[]
     steps: number
+    startingDatetime: string
 }
 
 
 export default function CurrentGame({ route, navigation }: any) {
     const [game, setGame] = useState<Game>();
     const [index, setIndex] = useState<number>(0);
+    const [isOpen, setIsOpen] = useState(false);
 
     const handleStroke = (index: number, operator: string) => {
         const strokes = [...game!.strokes];
@@ -46,7 +54,7 @@ export default function CurrentGame({ route, navigation }: any) {
         });
         const data: Course = await response.json();
         const initializedStrokes: Stroke[] = data.holes.map((hole: Hole) => { return { hole: hole, score: 0 } });
-        setGame({ course: data, strokes: initializedStrokes, steps: 0 });
+        setGame({ course: data, strokes: initializedStrokes, steps: 0, startingDatetime: dayjs().utc(true).toISOString() });
     }
 
     useEffect(() => {
@@ -54,29 +62,31 @@ export default function CurrentGame({ route, navigation }: any) {
     }, []);
 
     const handleSubmit = async () => {
-        try {
-            const token = await AsyncStorage.getItem('token')
-            const config = {
-                method: 'POST',
-                body: JSON.stringify(game),
+      try {
+        const token = await AsyncStorage.getItem('token')
+        const config = {
+          method: 'POST',
+          body: JSON.stringify(game),
                 headers: {
-                    'Authorization': `Bearer ${token}`,
-                    'Content-Type': 'application/json'
+                  'Authorization': `Bearer ${token}`,
+                  'Content-Type': 'application/json'
                 }
-            };
-            const response = await fetch(`https://discgolf-security.herokuapp.com/games`, config);
-            navigation.navigate('Profiili');
-            // TODO
-        } catch (error) {
-            console.log(error);
-        }
-    }
+              };
+              const response = await fetch(`https://discgolf-security.herokuapp.com/games`, config);
+              navigation.navigate('Profiili');
+              // TODO
+            } catch (error) {
+              console.log(error);
+            }
+            setIsOpen(false);
+          }
 
     return (
         !game ?
             <View></View>
             :
             <View style={styles.view}>
+              <ConfirmAlert isOpen={isOpen} setIsOpen={setIsOpen} handleSubmit={handleSubmit}/>
                 <View style={styles.throwButtonView}>
                     <Button
                         _pressed={{ opacity: 0.5 }}
@@ -116,7 +126,7 @@ export default function CurrentGame({ route, navigation }: any) {
                     </View>
                     <View style={styles.throwCounterView}>
                         {index === game.strokes.length - 1 && <Button
-                            onPress={() => handleSubmit()}
+                            onPress={() => setIsOpen(true)}
                             style={styles.throwButton} >Lopeta peli</Button>}
                     </View>
 
