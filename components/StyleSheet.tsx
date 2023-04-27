@@ -108,10 +108,10 @@ const styles = StyleSheet.create({
 
   informationContainer: {
     display: 'flex',
-    height: '35%',
+    height: '55%',
     width: '100%',
     position: 'absolute',
-    bottom: -80,
+    bottom: -140,
     marginBottom: 10,
     alignItems: 'center',
   },
@@ -121,7 +121,7 @@ const styles = StyleSheet.create({
     borderColor: '#336600',
     borderRadius: 15,
     borderWidth: 3,
-    height: '25%',
+    height: '15%',
     width: '97%',
     justifyContent: 'center'
   },
@@ -133,7 +133,7 @@ const styles = StyleSheet.create({
     borderColor: '#336600',
     borderRadius: 15,
     borderWidth: 3,
-    height: '35%',
+    height: '45%',
     width: '97%',
     justifyContent: 'center',
     alignItems: 'center'
@@ -144,30 +144,48 @@ const styles = StyleSheet.create({
     fontSize: 22,
     color: 'white',
   },
+  informationWeatherView: {
+    alignItems: 'center'
+  },
+  activityIndicator: {
+    padding: '15.3%',
+  },
   informationTextHeader: {
     paddingTop: 5,
     fontSize: 25,
     color: 'white',
     textAlign: 'center',
   },
+  informationContainerButtons: {
+    alignItems: 'center',
+  },
   informationButton: {
     color: 'green',
     backgroundColor: 'green',
     borderColor: '#336600',
     borderWidth: 3,
-    width: '40%',
-    height: '80%',
+    width: '75%',
+    height: '35%',
     borderRadius: 20,
-    paddingLeft: 25,
     justifyContent: 'center',
     alignItems: 'center'
   },
   informationButtonText: {
-    padding: 10,
     fontSize: 22,
     color: 'white',
   },
-
+  directionButton: {
+    color: 'green',
+    backgroundColor: 'green',
+    borderColor: '#336600',
+    borderWidth: 3,
+    width: '50%',
+    height: '35%',
+    borderRadius: 20,
+    marginBottom:5,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
   weatherView: {
     backgroundColor: 'green',
     height: '50%',
