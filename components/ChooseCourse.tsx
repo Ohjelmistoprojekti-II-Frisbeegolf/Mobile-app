@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { View, Button, Text, Select, FormControl } from 'native-base';
 import { styles } from './StyleSheet';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { courseurl } from './Url';
+import { courseUrl } from './Url';
 
 interface Course {
     courseId: number,
@@ -16,7 +16,7 @@ export default function ChooseCourse({ navigation }: { navigation: any }) {
     const fetchData = async () => {
         const token = await AsyncStorage.getItem('token')
         console.log(`Bearer ${token}`)
-        const response = await fetch(courseurl, {
+        const response = await fetch(courseUrl, {
             headers: {
                 'Authorization': `Bearer ${token}`
             }
@@ -40,7 +40,7 @@ export default function ChooseCourse({ navigation }: { navigation: any }) {
                 _pressed={{ opacity: 0.5 }}
                 isDisabled={courseId < 0}
                 style={styles.button}
-                onPress={() => navigation.navigate(' ', { courseId: courseId })}>
+                onPress={() => navigation.navigate(' ', { course: repository.find(element => element.courseId === courseId) })}>
                 <Text style={{ fontSize: 22, color: 'white' }}>Aloita peli!</Text>
             </Button>
         </View>

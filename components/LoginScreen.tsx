@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Text, View, TextInput, Button, TouchableOpacity } from 'react-native';
 import { styles } from './StyleSheet';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { logurl } from './Url';
+import { logUrl } from './Url';
 
 export default function LoginScreen({ navigation, setLoggedIn }: { navigation: any, setLoggedIn: any }) {
   const [username, setUsername] = useState('');
@@ -10,7 +10,7 @@ export default function LoginScreen({ navigation, setLoggedIn }: { navigation: a
 
   const handleLogin = async () => {
     try {
-      const response = await fetch(logurl, {
+      const response = await fetch(logUrl, {
         method: 'POST',
         body: JSON.stringify({
           username: username,

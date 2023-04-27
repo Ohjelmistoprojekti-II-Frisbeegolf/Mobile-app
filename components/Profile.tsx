@@ -3,7 +3,7 @@ import { View,Avatar,Text, Button } from 'native-base';
 import { styles } from './StyleSheet';
 import { ActivityIndicator } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { userurl } from './Url';
+import { userUrl } from './Url';
 
 interface User {
     userId: number,
@@ -30,7 +30,7 @@ export default function Profile({navigation}: {navigation: any}){
     const fetchData = async () => {
         const token = await AsyncStorage.getItem('token')
         console.log(`Bearer ${token}`)
-        const response = await fetch(userurl, {
+        const response = await fetch(userUrl, {
             headers: {
                 'Authorization': `Bearer ${token}`
             }
