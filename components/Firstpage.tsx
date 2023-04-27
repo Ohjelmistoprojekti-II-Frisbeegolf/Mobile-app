@@ -3,7 +3,7 @@ import { View,Avatar,Text, Button, AlertDialog, VStack, HStack, Divider, ZStack 
 import { styles } from './StyleSheet';
 import { ActivityIndicator, Alert, TouchableOpacity } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { userurl } from './Url';
+import { userUrl } from './Url';
 
 
 interface User {
@@ -40,14 +40,13 @@ export default function Firstpage({navigation}: {navigation: any}){
         totalSteps: 0,
         totalTimePlayed: 0,
         gamesPlayed: 0,
-
     });
     const [loading, setLoading] = useState(true);
 
     const fetchData = async () => {
         const token = await AsyncStorage.getItem('token')
         console.log(`Bearer ${token}`)
-        const response = await fetch(userurl, {
+        const response = await fetch(userUrl, {
             headers: {
                 'Authorization': `Bearer ${token}`
             },
