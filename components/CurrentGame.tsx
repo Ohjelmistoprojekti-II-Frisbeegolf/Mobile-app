@@ -8,7 +8,7 @@ import ConfirmAlert from './ConfirmAlert';
 import { MAIN_API_URL } from './Url';
 dayjs.extend(utc);
 
-interface Course {
+export interface Course {
     courseId: number,
     courseName: string,
     holes: Hole[]
@@ -21,11 +21,11 @@ interface Hole {
     holePar: number
 }
 
-interface Stroke {
+export interface Stroke {
     hole: Hole
     score: number
+    strokeId?: number
 }
-
 interface Game {
     course: Course
     strokes: Stroke[]

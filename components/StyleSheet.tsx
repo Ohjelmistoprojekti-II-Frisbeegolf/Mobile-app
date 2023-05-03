@@ -16,6 +16,11 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 
+  alertText:{
+    fontSize: 20,
+    color: 'black'
+  },
+
   button: {
     marginTop: 50,
     color: 'white',
