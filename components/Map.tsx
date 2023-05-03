@@ -228,7 +228,7 @@ export default function Map({ navigation }: { navigation: any }) {
                         </View>
                         <View style={styles.informationContainerButtons}>
                             <Button style={styles.directionButton} onPress={() => handleOpenUrl()}><AntDesign name="car" size={24} color="white" /></Button>
-                            <Button style={styles.informationButton} onPress={() => navigation.navigate(' ', { courseId: Selected.courseId })}>
+                            <Button style={styles.informationButton} onPress={() => navigation.navigate(' ', { course: Selected})}>
                                 <Text style={styles.informationButtonText}>Aloita</Text>
                             </Button>
                         </View>
