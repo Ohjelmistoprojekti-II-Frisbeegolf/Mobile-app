@@ -94,6 +94,14 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: 20,
   },
+  throwCounterEndGame: {
+    fontWeight: 'bold',
+    position: 'absolute',
+    bottom: '38s%',
+    width: '100%',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
 
   nextPreviousButton: {
     width: '40%',
