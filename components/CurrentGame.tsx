@@ -84,7 +84,7 @@ export default function CurrentGame({ route, navigation }: any) {
         !game ?
             <View></View>
             :
-            <View style={styles.view}>
+            <View style={styles.gameView}>
                 <ConfirmAlert isOpen={isOpen} setIsOpen={setIsOpen} handleSubmit={handleSubmit} />
                 <View style={styles.throwButtonView}>
                     <Button
