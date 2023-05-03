@@ -20,8 +20,8 @@
     "ios": {
       "supportsTablet": true,
       "NSLocationWhenInUseUsageDescription": "This app needs access to your location to show weather information",
-      "NSLocationAlwaysAndWhenInUseUsageDescription": "This app needs access to your location to show weather information"
-
+      "NSLocationAlwaysAndWhenInUseUsageDescription": "This app needs access to your location to show weather information",
+      "bundleIdentifier": "com.bguplymander.discgolfapp"
     },
     "android": {
       "adaptiveIcon": {
@@ -31,6 +31,11 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "b59ccd2a-8607-43eb-9798-054c3b8073cf"
+      }
     }
   }
 }
