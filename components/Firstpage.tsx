@@ -38,7 +38,7 @@ interface Result {
     ALBATROSS: number,
     BOGEY: number,
     DOUBLE_BOGEY: number,
-    TRIPLE_BOGEY: number,
+    OVER_TRIPLE_BOGEY: number,
 }
 
 export default function Firstpage({ navigation }: { navigation: any }) {
@@ -61,15 +61,14 @@ export default function Firstpage({ navigation }: { navigation: any }) {
             EAGLE: 0,
             ALBATROSS: 0,
             BOGEY: 0,
-            DOUBLE_BOGEY:0,
-            TRIPLE_BOGEY: 0,
+            DOUBLE_BOGEY: 0,
+            OVER_TRIPLE_BOGEY: 0,
         }
     });
     const [loading, setLoading] = useState(true);
 
     const fetchData = async () => {
-        const token = await AsyncStorage.getItem('token')
-        console.log(`Bearer ${token}`)
+        const token = await AsyncStorage.getItem('token');
         const response = await fetch(MAIN_API_URL + 'users/current', {
             headers: {
                 'Authorization': `Bearer ${token}`
@@ -81,8 +80,7 @@ export default function Firstpage({ navigation }: { navigation: any }) {
     }
 
     const fetchGame = async () => {
-        const token = await AsyncStorage.getItem('token')
-        console.log(`Bearer ${token}`)
+        const token = await AsyncStorage.getItem('token');
         const response = await fetch(MAIN_API_URL + `games/users/${repository.userId}`, {
             headers: {
                 'Authorization': `Bearer ${token}`
@@ -118,9 +116,9 @@ export default function Firstpage({ navigation }: { navigation: any }) {
     const onCloseThird = () => setIsOpenThird(false);
 
     const isFocused = useIsFocused();
-            useEffect(() => {
-                fetchData()
-        }, [isFocused])
+    useEffect(() => {
+        fetchData()
+    }, [isFocused])
 
     useEffect(() => {
         fetchGame()
@@ -156,14 +154,14 @@ export default function Firstpage({ navigation }: { navigation: any }) {
                                         {repository.totalThrowsThrown}
                                     </Text>
                                 </TouchableOpacity>
-                                <AlertDialog leastDestructiveRef={cancelRef} isOpen={isOpenSecond} onClose={onCloseSecond} style={{borderWidth: 2, borderColor: 'green'}}>
+                                <AlertDialog leastDestructiveRef={cancelRef} isOpen={isOpenSecond} onClose={onCloseSecond} style={{ borderWidth: 2, borderColor: 'green' }}>
                                     <AlertDialog.Content>
                                         <AlertDialog.CloseButton />
                                         <AlertDialog.Header>
                                             <Text style={styles.alertText}>
                                                 Heitot
                                             </Text>
-                                            </AlertDialog.Header>
+                                        </AlertDialog.Header>
 
                                         <AlertDialog.Body>
                                             <VStack space={3} divider={<Divider />}>
@@ -209,7 +207,7 @@ export default function Firstpage({ navigation }: { navigation: any }) {
                                                 </HStack>
                                                 <HStack justifyContent="space-between">
                                                     <Text style={styles.alertText}>
-                                                        Tripla Bogey: {repository.results.TRIPLE_BOGEY}
+                                                        Tripla Bogey: {repository.results.OVER_TRIPLE_BOGEY}
                                                     </Text>
                                                 </HStack>
                                             </VStack>
@@ -234,17 +232,17 @@ export default function Firstpage({ navigation }: { navigation: any }) {
                                         </AlertDialog.Header>
                                         <AlertDialog.Body>
                                             {games.map(game =>
-                                            <TouchableOpacity key={game.gameId} onPress={() => handleGameDialogOpen(game)}>
-                                            <Box padding={3}>
-                                                <Text style={styles.alertText}>
-                                                    {game.course.courseName}
-                                                </Text>
-                                                <Text style={styles.alertText}>
-                                                    {dayjs(game.startingDatetime).format('DD.MM.YYYY HH:mm')}
-                                                </Text>
-                                            </Box> 
-                                            <Divider />
-                                            </TouchableOpacity>)}
+                                                <TouchableOpacity key={game.gameId} onPress={() => handleGameDialogOpen(game)}>
+                                                    <Box padding={3}>
+                                                        <Text style={styles.alertText}>
+                                                            {game.course.courseName}
+                                                        </Text>
+                                                        <Text style={styles.alertText}>
+                                                            {dayjs(game.startingDatetime).format('DD.MM.YYYY HH:mm')}
+                                                        </Text>
+                                                    </Box>
+                                                    <Divider />
+                                                </TouchableOpacity>)}
                                         </AlertDialog.Body>
                                     </AlertDialog.Content>
                                 </AlertDialog>
@@ -254,33 +252,33 @@ export default function Firstpage({ navigation }: { navigation: any }) {
                                         <AlertDialog.Header>Peli</AlertDialog.Header>
                                         <AlertDialog.Body>
                                             <Box>
-                                            <VStack space={3} divider={<Divider />}>
-                                                <Text style={styles.alertText}>
-                                                    {game?.course.courseName}
-                                                </Text>
-                                                <Text style={styles.alertText}>
-                                                    Aloitus: {dayjs(game?.startingDatetime).format('DD.MM.YYYY HH:mm')}
-                                                </Text>
-                                                <Text style={styles.alertText}>
-                                                    Lopetus: {dayjs(game?.endingDatetime).format('DD.MM.YYYY HH:mm')}
-                                                </Text>
-                                                {game?.strokes.map(stroke => 
-                                                    <Box key={stroke.strokeId} >
+                                                <VStack space={3} divider={<Divider />}>
                                                     <Text style={styles.alertText}>
-                                                    Väylä: {stroke.hole.holeNumber}
+                                                        {game?.course.courseName}
                                                     </Text>
                                                     <Text style={styles.alertText}>
-                                                        Par: {stroke.hole.holePar}
+                                                        Aloitus: {dayjs(game?.startingDatetime).format('DD.MM.YYYY HH:mm')}
                                                     </Text>
                                                     <Text style={styles.alertText}>
-                                                        Tulos: {stroke.score}
+                                                        Lopetus: {dayjs(game?.endingDatetime).format('DD.MM.YYYY HH:mm')}
                                                     </Text>
-                                                    </Box>)}
-                                            </VStack>
+                                                    {game?.strokes.map(stroke =>
+                                                        <Box key={stroke.strokeId} >
+                                                            <Text style={styles.alertText}>
+                                                                Väylä: {stroke.hole.holeNumber}
+                                                            </Text>
+                                                            <Text style={styles.alertText}>
+                                                                Par: {stroke.hole.holePar}
+                                                            </Text>
+                                                            <Text style={styles.alertText}>
+                                                                Tulos: {stroke.score}
+                                                            </Text>
+                                                        </Box>)}
+                                                </VStack>
                                             </Box>
                                         </AlertDialog.Body>
                                         <AlertDialog.Footer>
-                                            <Button disabled color={'red'}>Poista</Button>
+                                            <Button isDisabled >Poista</Button>
                                         </AlertDialog.Footer>
                                     </AlertDialog.Content>
                                 </AlertDialog>

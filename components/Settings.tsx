@@ -45,21 +45,21 @@ export default function Settings(props: any) {
         console.log('No token found');
         return;
       }
-  
+
       const response = await fetch(MAIN_API_URL + 'users/current', {
         method: 'GET',
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
-  
+
       if (!response.ok) {
         console.log('Error getting current user');
         return;
       }
-  
+
       const currentUser: User = await response.json();
-  
+
       Alert.alert(
         'Haluatko varmasti poistaa tämän tunnuksen?',
         'Tämä toiminto poistaa käyttäjän sekä kaiken sen datan.',
@@ -74,7 +74,7 @@ export default function Settings(props: any) {
                   Authorization: `Bearer ${token}`,
                 },
               });
-  
+
               if (deleteResponse.ok) {
                 await AsyncStorage.removeItem('token');
                 props.setLoggedIn(false);
@@ -95,15 +95,16 @@ export default function Settings(props: any) {
       console.error(error);
     }
   };
-  
-  
+
+
   return (
     <View style={styles.view}>
-      <Button _pressed={{ opacity: 0.5 }} style={styles.button} disabled>Nollaa tilastot</Button>
+      <Button _pressed={{ opacity: 0.5 }} style={styles.button} isDisabled>Nollaa tilastot</Button>
       <Button _pressed={{ opacity: 0.5 }} style={styles.button} onPress={() => {
-      Linking.openSettings();}}>Puhelimen asetukset</Button>
+        Linking.openSettings();
+      }}>Puhelimen asetukset</Button>
       <Button _pressed={{ opacity: 0.5 }} style={styles.button} onPress={deleteUser}>Poista tunnus</Button>
       <Button _pressed={{ opacity: 0.5 }} style={styles.button} onPress={logOut}>Kirjaudu ulos</Button>
     </View>
   );
-  }  
+}  
