@@ -102,7 +102,7 @@ const styles = StyleSheet.create({
   throwCounterEndGame: {
     fontWeight: 'bold',
     position: 'absolute',
-    bottom: '38s%',
+    bottom: '38%',
     width: '100%',
     alignItems: 'center',
     justifyContent: 'center',

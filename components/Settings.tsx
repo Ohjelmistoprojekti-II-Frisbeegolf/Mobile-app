@@ -18,7 +18,7 @@ interface User {
 }
 
 export default function Settings(props: any) {
-  const kirjauduUlos = async () => {
+  const logOut = async () => {
     Alert.alert(
       'Haluatko varmasti kirjautua ulos?',
       '',
@@ -38,7 +38,7 @@ export default function Settings(props: any) {
     );
   };
 
-  const poistaTunnus = async () => {
+  const deleteUser = async () => {
     try {
       const token = await AsyncStorage.getItem('token');
       if (!token) {
@@ -102,8 +102,8 @@ export default function Settings(props: any) {
       <Button _pressed={{ opacity: 0.5 }} style={styles.button} disabled>Nollaa tilastot</Button>
       <Button _pressed={{ opacity: 0.5 }} style={styles.button} onPress={() => {
       Linking.openSettings();}}>Puhelimen asetukset</Button>
-      <Button _pressed={{ opacity: 0.5 }} style={styles.button} onPress={poistaTunnus}>Poista tunnus</Button>
-      <Button _pressed={{ opacity: 0.5 }} style={styles.button} onPress={kirjauduUlos}>Kirjaudu ulos</Button>
+      <Button _pressed={{ opacity: 0.5 }} style={styles.button} onPress={deleteUser}>Poista tunnus</Button>
+      <Button _pressed={{ opacity: 0.5 }} style={styles.button} onPress={logOut}>Kirjaudu ulos</Button>
     </View>
   );
   }  

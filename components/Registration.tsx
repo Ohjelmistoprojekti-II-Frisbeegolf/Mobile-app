@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react";
-import { FormControl, View, Button, Input, VStack, AlertDialog } from 'native-base';
+import React, { useState } from "react";
+import { FormControl, View, Button, Input, VStack } from 'native-base';
 import { styles } from './StyleSheet';
-import { MAIN_API_URL, regUrl } from "./Url";
+import { MAIN_API_URL } from "./Url";
 
 export default function Registration({ navigation }: { navigation: any }) {
     const [data, setData] = useState({ username: '', password: '', passwordCheck: '' });
