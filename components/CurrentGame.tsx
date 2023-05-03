@@ -127,13 +127,13 @@ export default function CurrentGame({ route, navigation }: any) {
                         </Button>
 
                     </View>
-                    <View style={styles.throwCounterView}>
+
+                </View>
+                    <View style={styles.throwCounterEndGame}>
                         {index === game.strokes.length - 1 && <Button
                             onPress={() => setIsOpen(true)}
                             style={styles.throwButton} >Lopeta peli</Button>}
                     </View>
-
-                </View>
 
             </View> 
     );
