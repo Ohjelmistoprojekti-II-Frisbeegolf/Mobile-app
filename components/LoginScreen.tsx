@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { Text, View, TextInput, Button, TouchableOpacity } from 'react-native';
+import { Text, View, TextInput, TouchableOpacity } from 'react-native';
 import { styles } from './StyleSheet';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { MAIN_API_URL, logUrl } from './Url';
+import { MAIN_API_URL } from './Url';
 
 export default function LoginScreen({ navigation, setLoggedIn }: { navigation: any, setLoggedIn: any }) {
   const [username, setUsername] = useState('');
@@ -22,15 +22,14 @@ export default function LoginScreen({ navigation, setLoggedIn }: { navigation: a
       });
 
       if (response.ok) {
-        const token = response.headers.get("Authorization");
-        console.log(token);
+        const token = response.headers.get('Authorization');
         await AsyncStorage.setItem('token', token!);
         setLoggedIn(true);
       } else {
         alert('Virheellinen käyttäjätunnus tai salasana');
       }
     } catch (error) {
-      console.error(error);
+      console.log(error);
     }
   };
 

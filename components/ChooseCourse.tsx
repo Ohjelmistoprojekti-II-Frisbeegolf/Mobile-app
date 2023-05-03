@@ -15,7 +15,6 @@ export default function ChooseCourse({ navigation }: { navigation: any }) {
 
     const fetchData = async () => {
         const token = await AsyncStorage.getItem('token')
-        console.log(`Bearer ${token}`)
         const response = await fetch(MAIN_API_URL + 'courses', {
             headers: {
                 'Authorization': `Bearer ${token}`
@@ -33,7 +32,7 @@ export default function ChooseCourse({ navigation }: { navigation: any }) {
     return (
         <View style={styles.view}>
             <Text style={styles.header}>Valitse rata: </Text>
-            <Select accessibilityLabel="Valitse rata" placeholder="Valitse rata" minWidth='200' onValueChange={value => setCourseId(parseInt(value))}>
+            <Select accessibilityLabel='Valitse rata' placeholder='Valitse rata' minWidth='200' onValueChange={value => setCourseId(parseInt(value))}>
                 {repository.map(course => <Select.Item label={course.courseName} value={course.courseId.toString()} key={course.courseId} />)}
             </Select>
             <Button

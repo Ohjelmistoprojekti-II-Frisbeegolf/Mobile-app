@@ -41,7 +41,7 @@ export default function CurrentGame({ route, navigation }: any) {
 
     const handleStroke = (index: number, operator: string) => {
         const strokes = [...game!.strokes];
-        strokes[index].score = operator === "-" ? strokes[index].score - 1 : strokes[index].score + 1;
+        strokes[index].score = operator === '-' ? strokes[index].score - 1 : strokes[index].score + 1;
         setGame({ ...game!, strokes: strokes });
     }
 

@@ -1,5 +1,4 @@
-import MyDrawer from "./Menu";
-import { Text, View, Button } from 'native-base';
+import { View, Button } from 'native-base';
 import { Alert, Linking } from "react-native";
 import React from 'react';
 import { styles } from './StyleSheet'
@@ -60,7 +59,6 @@ export default function Settings(props: any) {
       }
   
       const currentUser: User = await response.json();
-      console.log(currentUser);
   
       Alert.alert(
         'Haluatko varmasti poistaa tämän tunnuksen?',

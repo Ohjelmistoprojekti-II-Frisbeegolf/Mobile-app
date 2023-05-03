@@ -1,6 +1,6 @@
-import MapView, { Marker, Callout } from 'react-native-maps';
+import MapView, { Marker } from 'react-native-maps';
 import React, { useState, useEffect } from 'react'
-import { ScrollView, Text, View, Button, ChevronRightIcon, Image, } from 'native-base'
+import { ScrollView, Text, View, Button, Image, } from 'native-base'
 import { styles } from './StyleSheet';
 import { Input, } from 'native-base';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -60,7 +60,7 @@ export default function Map({ navigation }: { navigation: any }) {
             weather: [{ description: '', icon: '' }],
             wind: { speed: 0 }
         });
-    const defaultImageLink = "https://openweathermap.org/img/wn/11d@2x.png";
+    const defaultImageLink = 'https://openweathermap.org/img/wn/11d@2x.png';
     const [isLoading, setIsLoading] = useState<boolean>(false);
 
     useEffect(() => {
@@ -69,7 +69,6 @@ export default function Map({ navigation }: { navigation: any }) {
 
     const fetchData = async () => {
         const token = await AsyncStorage.getItem('token')
-        console.log(`Bearer ${token}`)
         const response = await fetch(MAIN_API_URL + 'courses', {
             headers: {
                 'Authorization': `Bearer ${token}`
@@ -193,7 +192,7 @@ export default function Map({ navigation }: { navigation: any }) {
             <View style={styles.mapSearch} >
                 <Input
                     style={styles.mapInput}
-                    placeholder="Etsi osoitteella..."
+                    placeholder='Etsi osoitteella...'
                     value={input}
                     onChangeText={(text) => setInput(text)}
                 />
@@ -211,7 +210,7 @@ export default function Map({ navigation }: { navigation: any }) {
                             <Text style={styles.informationText}>Vaikeustaso: {Selected?.courseDifficulty}</Text>
                             <Text style={styles.informationText}>Väylien määrä: {Selected?.holes.length}</Text>
                             {isLoading ? (
-                                <ActivityIndicator size='large' color="#1cff5a" style={styles.activityIndicator} />
+                                <ActivityIndicator size='large' color='#1cff5a' style={styles.activityIndicator} />
                             ) : (
                                 <View style={styles.informationWeatherView}>
                                     <Image
@@ -227,7 +226,7 @@ export default function Map({ navigation }: { navigation: any }) {
                             )}
                         </View>
                         <View style={styles.informationContainerButtons}>
-                            <Button style={styles.directionButton} onPress={() => handleOpenUrl()}><AntDesign name="car" size={24} color="white" /></Button>
+                            <Button style={styles.directionButton} onPress={() => handleOpenUrl()}><AntDesign name='car' size={24} color='white' /></Button>
                             <Button style={styles.informationButton} onPress={() => navigation.navigate(' ', { course: Selected})}>
                                 <Text style={styles.informationButtonText}>Aloita</Text>
                             </Button>

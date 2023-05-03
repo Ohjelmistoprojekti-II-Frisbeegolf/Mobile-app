@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import { View, Avatar, Text, Button, AlertDialog, VStack, HStack, Divider, ZStack } from 'native-base';
 import { styles } from './StyleSheet';
-import { ActivityIndicator, Alert, TouchableOpacity } from 'react-native';
+import { ActivityIndicator, TouchableOpacity } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { MAIN_API_URL, courseUrl, userUrl } from './Url';
+import { MAIN_API_URL, } from './Url';
 import { useIsFocused } from '@react-navigation/native'
 
 
@@ -56,7 +56,6 @@ export default function Firstpage({ navigation }: { navigation: any }) {
 
     const fetchData = async () => {
         const token = await AsyncStorage.getItem('token')
-        console.log(`Bearer ${token}`)
         const response = await fetch(MAIN_API_URL + 'users/current', {
             headers: {
                 'Authorization': `Bearer ${token}`
@@ -96,11 +95,11 @@ export default function Firstpage({ navigation }: { navigation: any }) {
                     <Text style={{ fontSize: 22, color: 'white' }}>Aloita peli</Text>
                 </Button>
                 <Avatar style={styles.avatar} source={{
-                    uri: "https://images.unsplash.com/photo-1603415526960-f7e0328c63b1?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80"
+                    uri: 'https://images.unsplash.com/photo-1603415526960-f7e0328c63b1?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80'
                 }} />
                 {loading ?
                     <ActivityIndicator
-                        size="small"
+                        size='small'
                         animating={loading} />
                     : (
                         <View style={styles.statsView}>
@@ -122,47 +121,47 @@ export default function Firstpage({ navigation }: { navigation: any }) {
                                         <AlertDialog.Header>Heitot</AlertDialog.Header>
                                         <AlertDialog.Body>
                                             <VStack space={3} divider={<Divider />}>
-                                                <HStack justifyContent="space-between">
+                                                <HStack justifyContent='space-between'>
                                                     <Text>
                                                         Kokonaisheitot: {repository.totalThrowsThrown}
                                                     </Text>
                                                 </HStack>
-                                                <HStack justifyContent="space-between">
+                                                <HStack justifyContent='space-between'>
                                                     <Text>
                                                         Hole-In-One: {repository.results.ACE}
                                                     </Text>
                                                 </HStack>
-                                                <HStack justifyContent="space-between">
+                                                <HStack justifyContent='space-between'>
                                                     <Text>
                                                         Albatrossi: {repository.results.ALBATROSS}
                                                     </Text>
                                                 </HStack>
-                                                <HStack justifyContent="space-between">
+                                                <HStack justifyContent='space-between'>
                                                     <Text>
                                                         Eagle: {repository.results.EAGLE}
                                                     </Text>
                                                 </HStack>
-                                                <HStack justifyContent="space-between">
+                                                <HStack justifyContent='space-between'>
                                                     <Text>
                                                         Birdie: {repository.results.BIRDIE}
                                                     </Text>
                                                 </HStack>
-                                                <HStack justifyContent="space-between">
+                                                <HStack justifyContent='space-between'>
                                                     <Text>
                                                         Par: {repository.results.PAR}
                                                     </Text>
                                                 </HStack>
-                                                <HStack justifyContent="space-between">
+                                                <HStack justifyContent='space-between'>
                                                     <Text>
                                                         Bogey: {repository.results.BOGEY}
                                                     </Text>
                                                 </HStack>
-                                                <HStack justifyContent="space-between">
+                                                <HStack justifyContent='space-between'>
                                                     <Text>
                                                         Tupla Bogey: {repository.results.DOUBLE_BOGEY}
                                                     </Text>
                                                 </HStack>
-                                                <HStack justifyContent="space-between">
+                                                <HStack justifyContent='space-between'>
                                                     <Text>
                                                         Tripla Bogey: {repository.results.TRIPLE_BOGEY}
                                                     </Text>

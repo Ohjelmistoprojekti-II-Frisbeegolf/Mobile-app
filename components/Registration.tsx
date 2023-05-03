@@ -90,19 +90,19 @@ export default function Registration({ navigation }: { navigation: any }) {
             <VStack width={'90%'} maxW={300}>
                 <FormControl isRequired isInvalid={errors.hasOwnProperty('username')}>
                     <FormControl.Label _text={styles.regText}>Syötä käyttäjätunnus</FormControl.Label>
-                    <Input style={styles.regInput} variant="underlined" p={4} placeholder="Käyttäjätunnus" onChangeText={value => setData({ ...data, username: value })} />
+                    <Input style={styles.regInput} variant='underlined' p={4} placeholder='Käyttäjätunnus' onChangeText={value => setData({ ...data, username: value })} />
                     {'username' in errors ? <FormControl.ErrorMessage>{errors.username}</FormControl.ErrorMessage> :
-                        <FormControl.HelperText _text={{ fontSize: "xs" }}>Käyttäjätunnuksessa tulee olla vähintään 5 merkkiä ja maksimissaan 20 merkkiä.</FormControl.HelperText>}
+                        <FormControl.HelperText _text={{ fontSize: 'xs' }}>Käyttäjätunnuksessa tulee olla vähintään 5 merkkiä ja maksimissaan 20 merkkiä.</FormControl.HelperText>}
                 </FormControl>
                 <FormControl isRequired isInvalid={errors.hasOwnProperty('password')}>
                     <FormControl.Label _text={styles.regText}>Syötä Salasana</FormControl.Label>
-                    <Input style={styles.regInput} variant="underlined" p={1} placeholder="Syötä salasana" onChangeText={value => setData({ ...data, password: value })} />
+                    <Input style={styles.regInput} variant='underlined' p={1} placeholder='Syötä salasana' onChangeText={value => setData({ ...data, password: value })} />
                     {'password' in errors ? <FormControl.ErrorMessage>{errors.password}</FormControl.ErrorMessage> :
                         <FormControl.HelperText _text={{ fontSize: 'xs' }}>Salasanassa tulee olla vähintään 7 merkkiä ja maksimissaan 32 merkkiä.</FormControl.HelperText>}
                 </FormControl>
                 <FormControl isRequired isInvalid={errors.hasOwnProperty('passwordCheck')}>
                     <FormControl.Label _text={styles.regText}>Vahvista salasana</FormControl.Label>
-                    <Input style={styles.regInput} variant="underlined" p={1} placeholder="Syötä salasana uudelleen" onChangeText={value => setData({ ...data, passwordCheck: value })} />
+                    <Input style={styles.regInput} variant='underlined' p={1} placeholder='Syötä salasana uudelleen' onChangeText={value => setData({ ...data, passwordCheck: value })} />
                     {'passwordCheck' in errors ? <FormControl.ErrorMessage>{errors.passwordCheck}</FormControl.ErrorMessage> :
                         <FormControl.HelperText _text={{ fontSize: 'xs' }}>Salasanojen tulee täsmätä.</FormControl.HelperText>}
                 </FormControl>

@@ -31,7 +31,7 @@ export default function Weather() {
 
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [incomingImageLink, setIncomingImageLink] = useState<string>('https://openweathermap.org/img/wn/11d@2x.png');
-  const defaultImageLink = "https://openweathermap.org/img/wn/11d@2x.png"
+  const defaultImageLink = 'https://openweathermap.org/img/wn/11d@2x.png'
 
   useEffect(() => {
     const fetchWeatherData = async () => {
@@ -54,10 +54,9 @@ export default function Weather() {
         const data = await response.json();
         setIncomingImageLink(`https://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`);
         setWeatherData(data);
-        console.log(data);
 
       } catch (error) {
-        console.error(error);
+        console.log(error);
       }
     };
 

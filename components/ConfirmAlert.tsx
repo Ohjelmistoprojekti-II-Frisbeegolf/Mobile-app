@@ -1,4 +1,4 @@
-import { useState, useRef, Dispatch, SetStateAction} from "react";
+import { useRef, Dispatch, SetStateAction} from "react";
 import { AlertDialog, Button, Center, NativeBaseProvider } from "native-base";
 
 interface Props{
@@ -21,10 +21,10 @@ export default function ConfirmAlert({ isOpen, setIsOpen, handleSubmit}: Props) 
           </AlertDialog.Body>
           <AlertDialog.Footer>
             <Button.Group space={2}>
-              <Button variant="unstyled" colorScheme="coolGray" onPress={onClose} ref={cancelRef}>
+              <Button variant='unstyled' colorScheme='coolGray' onPress={onClose} ref={cancelRef}>
                 En halua
               </Button>
-              <Button colorScheme="danger" onPress={handleSubmit}>
+              <Button colorScheme='danger' onPress={handleSubmit}>
                 Lopeta
               </Button>
             </Button.Group>
