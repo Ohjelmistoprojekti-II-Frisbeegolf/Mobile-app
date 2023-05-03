@@ -39,7 +39,6 @@ export default function Settings(props: any) {
     );
   };
 
-
   const poistaTunnus = async () => {
     try {
       const token = await AsyncStorage.getItem('token');
@@ -47,7 +46,7 @@ export default function Settings(props: any) {
         console.log('No token found');
         return;
       }
-
+  
       const response = await fetch(MAIN_API_URL + 'users/current', {
         method: 'GET',
         headers: {
@@ -62,26 +61,43 @@ export default function Settings(props: any) {
   
       const currentUser: User = await response.json();
       console.log(currentUser);
-
-      const deleteUrl = `${MAIN_API_URL}users/${currentUser.userId}`;
-      const deleteResponse = await fetch(deleteUrl, {
-        method: 'DELETE',
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-
-      if (deleteResponse.ok) {
-        await AsyncStorage.removeItem('token');
-        props.setLoggedIn(false);
-        console.log('User removed successfully');
-      } else {
-        console.log('Error removing user');
-      }
+  
+      Alert.alert(
+        'Haluatko varmasti poistaa tämän tunnuksen?',
+        'Tämä toiminto poistaa käyttäjän sekä kaiken sen datan.',
+        [
+          {
+            text: 'Kyllä',
+            onPress: async () => {
+              const deleteUrl = `${MAIN_API_URL}users/${currentUser.userId}`;
+              const deleteResponse = await fetch(deleteUrl, {
+                method: 'DELETE',
+                headers: {
+                  Authorization: `Bearer ${token}`,
+                },
+              });
+  
+              if (deleteResponse.ok) {
+                await AsyncStorage.removeItem('token');
+                props.setLoggedIn(false);
+                console.log('User removed successfully');
+              } else {
+                console.log('Error removing user');
+              }
+            },
+          },
+          {
+            text: 'Ei',
+            style: 'cancel',
+          },
+        ],
+        { cancelable: false }
+      );
     } catch (error) {
       console.error(error);
     }
   };
+  
   
   return (
     <View style={styles.view}>
