@@ -33,7 +33,7 @@ const styles = StyleSheet.create({
   view: {
     alignItems: 'center',
     height: '100%',
-    width: '100%'
+    width: '100%',
   },
 
   throwCounterView: {
@@ -103,7 +103,6 @@ const styles = StyleSheet.create({
     fontSize: 30,
     marginBottom: 10,
     lineHeight: 45,
-    fontFamily: 'Helvetica'
   },
 
   informationContainer: {
@@ -322,14 +321,29 @@ const styles = StyleSheet.create({
   },
 
   statsView: {
+    width: '100%',
+    height: '30%',
     paddingTop: 20,
-    marginTop: 10,
-    alignContent: 'space-between',
+    alignContent: 'center',
     justifyContent: 'center',
   },
 
   singleStatView: {
     marginTop: 2,
+    borderWidth: 2,
+    borderColor: '#336600',
+    borderRadius: 10,
+    marginBottom: 5,
+    paddingTop: 5,
+    backgroundColor: 'white',
+    width: '45%',
+    heigth: '40%',
+  },
+
+  singleStatViewFirst: {
+    marginTop: 2,
+    marginLeft: 15,
+    marginRight: -8,
     borderWidth: 2,
     borderColor: '#336600',
     borderRadius: 10,
@@ -346,7 +360,8 @@ const styles = StyleSheet.create({
 
   statsHeaderUsername: {
     paddingTop: 5,
-    fontSize: 24,
+    fontSize: 28,
+    paddingBottom: 5,
   },
   
   statsHeader: {

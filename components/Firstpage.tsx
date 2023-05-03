@@ -3,7 +3,8 @@ import { View, Avatar, Text, Button, AlertDialog, VStack, HStack, Divider, ZStac
 import { styles } from './StyleSheet';
 import { ActivityIndicator, Alert, TouchableOpacity } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { MAIN_API_URL, userUrl } from './Url';
+import { MAIN_API_URL, courseUrl, userUrl } from './Url';
+import { useIsFocused } from '@react-navigation/native'
 
 
 interface User {
@@ -32,7 +33,7 @@ interface Result {
 export default function Firstpage({ navigation }: { navigation: any }) {
 
     const [repository, setRepository] = useState<User>({
-        userId: 1,
+        userId: 0,
         username: "",
         password: "",
         role: "",
@@ -40,6 +41,16 @@ export default function Firstpage({ navigation }: { navigation: any }) {
         totalSteps: 0,
         totalTimePlayed: 0,
         gamesPlayed: 0,
+        results: {
+            ACE: 0,
+            PAR: 0,
+            BIRDIE: 0,
+            EAGLE: 0,
+            ALBATROSS: 0,
+            BOGEY: 0,
+            DOUBLE_BOGEY:0,
+            TRIPLE_BOGEY: 0,
+        }
     });
     const [loading, setLoading] = useState(true);
 
@@ -70,6 +81,11 @@ export default function Firstpage({ navigation }: { navigation: any }) {
 
     const onCloseSecond = () => setIsOpenSecond(false);
 
+    const isFocused = useIsFocused();
+            useEffect(() => {
+                fetchData()
+        }, [isFocused])
+
     return (
         <View>
             <View style={styles.view}>
@@ -91,8 +107,8 @@ export default function Firstpage({ navigation }: { navigation: any }) {
                             <View style={styles.statsHeaderUsernameView}>
                                 <Text style={styles.statsHeaderUsername}>{repository.username}</Text>
                             </View>
-                            <HStack space={2} justifyContent='center' >
-                                <TouchableOpacity style={styles.singleStatView} onPress={() => setIsOpenSecond(!isOpenSecond)}>
+                            <HStack space={2} justifyContent='center' flexWrap={'wrap'}>
+                                <TouchableOpacity style={styles.singleStatViewFirst} onPress={() => setIsOpenSecond(!isOpenSecond)}>
                                     <Text style={styles.statsHeader}>
                                         Heitot:
                                     </Text>
@@ -168,12 +184,10 @@ export default function Firstpage({ navigation }: { navigation: any }) {
                                         <AlertDialog.CloseButton />
                                         <AlertDialog.Header>Pelatut pelit</AlertDialog.Header>
                                         <AlertDialog.Body>
-                                            Pelatut pelit
+                                            <Text>Pelatut pelit</Text>
                                         </AlertDialog.Body>
                                     </AlertDialog.Content>
                                 </AlertDialog>
-                            </HStack>
-                            <HStack space={2} justifyContent='center' >
                                 <View style={styles.singleStatView}>
                                     <Text style={styles.statsHeader}>
                                         Askeleet:
