@@ -1,4 +1,4 @@
-import { Text, View, Button } from 'native-base';
+import { Text, View, Button, Divider } from 'native-base';
 import React, { useState, useEffect } from 'react';
 import { styles } from './StyleSheet';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -84,8 +84,10 @@ export default function CurrentGame({ route, navigation }: any) {
         !game ?
             <View></View>
             :
-            <View style={styles.gameView}>
+            
+<View style={styles.gameView}>
                 <ConfirmAlert isOpen={isOpen} setIsOpen={setIsOpen} handleSubmit={handleSubmit} />
+                <Text style={styles.header}>Väylä: {game.strokes[index].hole.holeNumber} / {game.course.holes.length}</Text>
                 <View style={styles.throwButtonView}>
                     <Button
                         _pressed={{ opacity: 0.5 }}
@@ -99,11 +101,13 @@ export default function CurrentGame({ route, navigation }: any) {
                         style={styles.nextPreviousButton}
                         onPress={() => setIndex(index + 1)} >Seuraava väylä</Button>
                 </View>
-                <Text style={styles.header}>Väylä: {game.strokes[index].hole.holeNumber}</Text>
-                <Text style={styles.header}>Par: {game.strokes[index].hole.holePar}</Text>
-                <Text style={styles.header}>Pituus: {game.strokes[index].hole.holeLength}m</Text>
-                <Text style={styles.header}> Heitot: </Text>
-                <View style={{ marginBottom: '100%' }}>
+                <View style={styles.currentGameStats}>
+                    <Text style={styles.header}>Par: {game.strokes[index].hole.holePar}</Text>
+                    <Divider style={{width:'90%'}}/>
+                    <Text style={styles.header}>Pituus: {game.strokes[index].hole.holeLength}m</Text>
+                </View>
+                <View style={styles.throwCounterTextView}>
+                    <Text style={styles.header}> Heitot: </Text>
                     <View style={styles.throwCounterView}>
                         <Button
                             _pressed={{ opacity: 0.5 }}
@@ -111,7 +115,7 @@ export default function CurrentGame({ route, navigation }: any) {
                             isDisabled={game!.strokes[index].score === 0}
                             onPress={() => handleStroke(index, '-')}
                         >
-                            -
+                            <Text style={styles.throwCounterButtonFont}>-</Text>
                         </Button>
                         <Text style={styles.throwCounterText}>{game.strokes[index].score}</Text>
                         <Button
@@ -119,7 +123,7 @@ export default function CurrentGame({ route, navigation }: any) {
                             style={styles.throwButton}
                             onPress={() => handleStroke(index, '+')}
                         >
-                            +
+                            <Text style={styles.throwCounterButtonFont}>+</Text>
                         </Button>
 
                     </View>
@@ -131,6 +135,6 @@ export default function CurrentGame({ route, navigation }: any) {
 
                 </View>
 
-            </View>
+            </View> 
     );
 }
