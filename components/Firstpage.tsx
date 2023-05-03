@@ -124,6 +124,19 @@ export default function Firstpage({ navigation }: { navigation: any }) {
         fetchGame()
     }, [repository])
 
+    const deleteGame = async () => {
+        const token = await AsyncStorage.getItem('token');
+        const response = await fetch(MAIN_API_URL + `games/${game?.gameId}`, {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            },
+            method: 'DELETE'
+        });
+        fetchGame();
+        fetchData();
+        onCloseThird();
+    }
+
     return (
         <View>
             <View style={styles.view}>
@@ -278,7 +291,7 @@ export default function Firstpage({ navigation }: { navigation: any }) {
                                             </Box>
                                         </AlertDialog.Body>
                                         <AlertDialog.Footer>
-                                            <Button isDisabled >Poista</Button>
+                                            <Button onPress={() => deleteGame()} >Poista</Button>
                                         </AlertDialog.Footer>
                                     </AlertDialog.Content>
                                 </AlertDialog>
