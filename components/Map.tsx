@@ -62,6 +62,7 @@ export default function Map({ navigation }: { navigation: any }) {
         });
     const defaultImageLink = 'https://openweathermap.org/img/wn/11d@2x.png';
     const [isLoading, setIsLoading] = useState<boolean>(false);
+    const [openFilter,setOpenFilter] = useState<boolean>(false);
 
     useEffect(() => {
         fetchData();
@@ -125,6 +126,7 @@ export default function Map({ navigation }: { navigation: any }) {
             if (result.length === 1) {
                 setSelected(result[0]);
                 setShowInfo(true);
+                setOpenFilter(false);
                 fetchWeatherData(result[0]);
                 mapRef.current?.animateToRegion({
                     latitude: result[0].latitude,
@@ -134,6 +136,7 @@ export default function Map({ navigation }: { navigation: any }) {
                 });
                 filterResult = true;
             } else {
+                setOpenFilter(true);
                 setSearchResult({
                     name: input,
                 });
@@ -234,7 +237,7 @@ export default function Map({ navigation }: { navigation: any }) {
                     </View>
                 </View>
             )}
-            {searchResult.name !== '' && (
+            {searchResult.name !== '' && openFilter &&(
                 <View style={styles.searchResultContainer}>
                     <Text style={styles.searchResultText}>Haulla löytyi useampi osoite:</Text>
                     <ScrollView style={{ width: '100%' }}>
