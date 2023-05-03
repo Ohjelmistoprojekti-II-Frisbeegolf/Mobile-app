@@ -102,7 +102,6 @@ export default function Settings(props: any) {
       <Button _pressed={{ opacity: 0.5 }} style={styles.button}>Nollaa tilastot</Button>
       <Button _pressed={{ opacity: 0.5 }} style={styles.button} onPress={() => {
       Linking.openSettings();}}>Puhelimen asetukset</Button>
-  
       <Button _pressed={{ opacity: 0.5 }} style={styles.button} onPress={poistaTunnus}>Poista tunnus</Button>
       <Button _pressed={{ opacity: 0.5 }} style={styles.button} onPress={kirjauduUlos}>Kirjaudu ulos</Button>
     </View>

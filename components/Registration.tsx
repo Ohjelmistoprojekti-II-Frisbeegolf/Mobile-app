@@ -96,13 +96,13 @@ export default function Registration({ navigation }: { navigation: any }) {
                 </FormControl>
                 <FormControl isRequired isInvalid={errors.hasOwnProperty('password')}>
                     <FormControl.Label _text={styles.regText}>Syötä Salasana</FormControl.Label>
-                    <Input style={styles.regInput} variant='underlined' p={1} placeholder='Syötä salasana' onChangeText={value => setData({ ...data, password: value })} />
+                    <Input style={styles.regInput} variant='underlined' p={1} placeholder='Syötä salasana' onChangeText={value => setData({ ...data, password: value })} secureTextEntry={true} />
                     {'password' in errors ? <FormControl.ErrorMessage>{errors.password}</FormControl.ErrorMessage> :
                         <FormControl.HelperText _text={{ fontSize: 'xs' }}>Salasanassa tulee olla vähintään 7 merkkiä ja maksimissaan 32 merkkiä.</FormControl.HelperText>}
                 </FormControl>
                 <FormControl isRequired isInvalid={errors.hasOwnProperty('passwordCheck')}>
                     <FormControl.Label _text={styles.regText}>Vahvista salasana</FormControl.Label>
-                    <Input style={styles.regInput} variant='underlined' p={1} placeholder='Syötä salasana uudelleen' onChangeText={value => setData({ ...data, passwordCheck: value })} />
+                    <Input style={styles.regInput} variant='underlined' p={1} placeholder='Syötä salasana uudelleen' onChangeText={value => setData({ ...data, passwordCheck: value })} secureTextEntry={true} />
                     {'passwordCheck' in errors ? <FormControl.ErrorMessage>{errors.passwordCheck}</FormControl.ErrorMessage> :
                         <FormControl.HelperText _text={{ fontSize: 'xs' }}>Salasanojen tulee täsmätä.</FormControl.HelperText>}
                 </FormControl>
