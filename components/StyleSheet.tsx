@@ -32,25 +32,40 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     height: '100%',
     width: '100%',
-  },
+  },  
   gameView: {
-    marginTop:'40%',
+    marginTop:'30%',
     alignItems: 'center',
     height: '100%',
     width: '100%',
   },
+  currentGameStats: {
+    marginTop: '10%',
+    alignItems: 'center',
+    width: '80%',
+    borderRadius: 20,
+    borderColor: '#336600',
+    borderWidth: 2,
+    backgroundColor:'white',
+    padding:5,
+  },
   throwCounterView: {
     flexDirection: 'row',
     justifyContent: 'center',
-    marginTop: '5%'
+    alignItems: 'center',
+    marginTop: '3%',
 
+  },
+  throwCounterTextView: {
+    alignItems:'center',
+    marginTop:20
   },
 
   throwButtonView: {
     alignItems: 'center',
     flexDirection: 'row',
     position: 'absolute',
-    top: '65%',
+    top: '70%',
   },
 
   throwCounterText: {
@@ -73,6 +88,11 @@ const styles = StyleSheet.create({
     borderColor: '#336600',
     borderWidth: 1,
     borderRadius: 50,
+  },
+  throwCounterButtonFont: {
+    fontWeight: 'bold',
+    color: 'white',
+    fontSize: 20,
   },
 
   nextPreviousButton: {
