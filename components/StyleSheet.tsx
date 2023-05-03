@@ -35,7 +35,12 @@ const styles = StyleSheet.create({
     height: '100%',
     width: '100%',
   },
-
+  gameView: {
+    marginTop:'40%',
+    alignItems: 'center',
+    height: '100%',
+    width: '100%',
+  },
   throwCounterView: {
     flexDirection: 'row',
     justifyContent: 'center',
@@ -46,6 +51,8 @@ const styles = StyleSheet.create({
   throwButtonView: {
     alignItems: 'center',
     flexDirection: 'row',
+    position: 'absolute',
+    top: '65%',
   },
 
   throwCounterText: {
