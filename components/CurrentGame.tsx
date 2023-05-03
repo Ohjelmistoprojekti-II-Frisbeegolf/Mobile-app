@@ -5,7 +5,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import dayjs from 'dayjs';
 import utc from "dayjs/plugin/utc";
 import ConfirmAlert from './ConfirmAlert';
-import { set } from 'react-native-reanimated';
+import { MAIN_API_URL } from './Url';
 dayjs.extend(utc);
 
 interface Course {
@@ -47,7 +47,7 @@ export default function CurrentGame({ route, navigation }: any) {
 
     const fetchData = async () => {
         const token = await AsyncStorage.getItem('token');
-        const response = await fetch(`https://dev-discgolf.herokuapp.com/courses/${route.params.course.courseId}`, {
+        const response = await fetch(`${MAIN_API_URL}courses/${route.params.course.courseId}`, {
             headers: {
                 'Authorization': `Bearer ${token}`
             }
@@ -62,31 +62,30 @@ export default function CurrentGame({ route, navigation }: any) {
     }, []);
 
     const handleSubmit = async () => {
-      try {
-        const token = await AsyncStorage.getItem('token')
-        const config = {
-          method: 'POST',
-          body: JSON.stringify(game),
+        try {
+            const token = await AsyncStorage.getItem('token')
+            const config = {
+                method: 'POST',
+                body: JSON.stringify(game),
                 headers: {
-                  'Authorization': `Bearer ${token}`,
-                  'Content-Type': 'application/json'
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json'
                 }
-              };
-              const response = await fetch(`https://discgolf-security.herokuapp.com/games`, config);
-              navigation.navigate('Profiili');
-              // TODO
-            } catch (error) {
-              console.log(error);
-            }
-            setIsOpen(false);
-          }
+            };
+            const response = await fetch(MAIN_API_URL + 'games', config);
+            navigation.navigate('Etusivu');
+        } catch (error) {
+            console.log(error);
+        }
+        setIsOpen(false);
+    }
 
     return (
         !game ?
             <View></View>
             :
             <View style={styles.view}>
-              <ConfirmAlert isOpen={isOpen} setIsOpen={setIsOpen} handleSubmit={handleSubmit}/>
+                <ConfirmAlert isOpen={isOpen} setIsOpen={setIsOpen} handleSubmit={handleSubmit} />
                 <View style={styles.throwButtonView}>
                     <Button
                         _pressed={{ opacity: 0.5 }}

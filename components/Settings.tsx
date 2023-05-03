@@ -4,7 +4,7 @@ import { Alert } from "react-native";
 import React from 'react';
 import { styles } from './StyleSheet'
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { userUrl } from "./Url";
+import { MAIN_API_URL, userUrl } from "./Url";
 
 interface User {
   userId: number,
@@ -47,8 +47,8 @@ export default function Settings(props: any) {
         console.log('No token found');
         return;
       }
-  
-      const response = await fetch(userUrl, {
+
+      const response = await fetch(MAIN_API_URL + 'users/current', {
         method: 'GET',
         headers: {
           Authorization: `Bearer ${token}`,
@@ -62,37 +62,22 @@ export default function Settings(props: any) {
   
       const currentUser: User = await response.json();
       console.log(currentUser);
-  
-      Alert.alert(
-        'Haluatko varmasti poistaa tämän tunnuksen?',
-        'Tämä toiminto poistaa käyttäjän sekä kaiken sen datan.',
-        [
-          {
-            text: 'Kyllä',
-            onPress: async () => {
-              const deleteUrl = `https://dev-discgolf.herokuapp.com/users/${currentUser.userId}`;
-              const deleteResponse = await fetch(deleteUrl, {
-                method: 'DELETE',
-                headers: {
-                  Authorization: `Bearer ${token}`,
-                },
-              });
-  
-              if (deleteResponse.ok) {
-                await AsyncStorage.removeItem('token');
-                props.setLoggedIn(false);
-                console.log('User removed successfully');
-              } else {
-                console.log('Error removing user');
-              }
-            }
-          },
-          {
-            text: 'Ei',
-            style: 'cancel'
-          },
-        ]
-      );
+
+      const deleteUrl = `${MAIN_API_URL}users/${currentUser.userId}`;
+      const deleteResponse = await fetch(deleteUrl, {
+        method: 'DELETE',
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (deleteResponse.ok) {
+        await AsyncStorage.removeItem('token');
+        props.setLoggedIn(false);
+        console.log('User removed successfully');
+      } else {
+        console.log('Error removing user');
+      }
     } catch (error) {
       console.error(error);
     }

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Text, View, TextInput, Button, TouchableOpacity } from 'react-native';
 import { styles } from './StyleSheet';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { logUrl } from './Url';
+import { MAIN_API_URL, logUrl } from './Url';
 
 export default function LoginScreen({ navigation, setLoggedIn }: { navigation: any, setLoggedIn: any }) {
   const [username, setUsername] = useState('');
@@ -10,7 +10,7 @@ export default function LoginScreen({ navigation, setLoggedIn }: { navigation: a
 
   const handleLogin = async () => {
     try {
-      const response = await fetch(logUrl, {
+      const response = await fetch(MAIN_API_URL + 'login', {
         method: 'POST',
         body: JSON.stringify({
           username: username,
@@ -49,15 +49,15 @@ export default function LoginScreen({ navigation, setLoggedIn }: { navigation: a
         onChangeText={setPassword}
         secureTextEntry
       />
-    <View/>
-    <View style={styles.regButtonView}>
-    <TouchableOpacity style={styles.loginPageButton} onPress={handleLogin}>
-    <Text style={[{ color: 'white' }]}>Kirjaudu</Text>
-    </TouchableOpacity>
-    <TouchableOpacity style={styles.loginPageButton} onPress={() => navigation.navigate('Rekisteröidy')}>
-    <Text style={[{ color: 'white' }]}>Rekisteröidy</Text>
-    </TouchableOpacity>
-    </View>
+      <View />
+      <View style={styles.regButtonView}>
+        <TouchableOpacity style={styles.loginPageButton} onPress={handleLogin}>
+          <Text style={[{ color: 'white' }]}>Kirjaudu</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.loginPageButton} onPress={() => navigation.navigate('Rekisteröidy')}>
+          <Text style={[{ color: 'white' }]}>Rekisteröidy</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 }

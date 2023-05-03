@@ -3,6 +3,7 @@ import { View, Text, Image } from 'native-base';
 import { styles } from './StyleSheet';
 import * as Location from 'expo-location';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { MAIN_API_URL } from './Url';
 
 
 interface WeatherData {
@@ -45,10 +46,10 @@ export default function Weather() {
         const location = await Location.getCurrentPositionAsync({});
         const { latitude, longitude } = location.coords;
 
-        const response = await fetch(`https://dev-discgolf.herokuapp.com/weather?lat=${latitude}&lon=${longitude}`,{
+        const response = await fetch(`${MAIN_API_URL}weather?lat=${latitude}&lon=${longitude}`, {
           headers: {
             'Authorization': `Bearer ${token}`
-        }
+          }
         })
         const data = await response.json();
         setIncomingImageLink(`https://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`);
@@ -80,4 +81,4 @@ export default function Weather() {
       <Text style={styles.weatherText}>Tuulen nopeus: {weatherData.wind.speed} m/s</Text>
     </View>
   );
-  }
+}
