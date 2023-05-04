@@ -47,9 +47,6 @@ npx expo start
 * Make sure you have an emulator set up on your computer, such as [Android Studio Emulator](https://docs.expo.dev/workflow/android-studio-emulator/) or [iOS Simulator](https://docs.expo.dev/workflow/ios-simulator/).
 * In the terminal, press the key `a` to run the app on an Android emulator or `i` to run it on an iOS simulator. Alternatively, you can click the `Run on Android device/emulator` or `Run on iOS simulator` button in the Expo Dev Tools website.
 
-## Important
-
-This app is optimized to use iOS-devices.
 
 ## API Documentation
 
