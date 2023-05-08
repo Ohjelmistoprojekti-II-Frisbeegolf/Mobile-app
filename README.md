@@ -2,6 +2,7 @@
 
 ## Download app
 Link for android https://expo.dev/artifacts/eas/qtC9bn3gAZtUYz4A2xJCwt.apk
+
 Link for IOS https://expo.dev/artifacts/eas/uSxkaePM1gG22kmQLWjxHC.tar.gz
 
 ## Installation guide
